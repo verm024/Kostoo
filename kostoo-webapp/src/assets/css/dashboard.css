@@ -1,0 +1,71 @@
+.dashboard {
+    margin-left: 24px;
+}
+
+.judul-card {
+    color: #333333;
+    font-weight: 600;
+}
+
+.list-card-proyek{
+    display: flex;
+    margin-right: 20px;
+    overflow-x: auto;
+}
+
+/* card proyek */
+.card-proyek {
+    justify-content: space-between;
+    display: flex;
+    margin-right: 16px;
+    padding: 0px 20px;
+    background: #FFFFFF;
+    border: 1px solid #F1F4F2;
+    box-sizing: border-box;
+    border-radius: 8px;
+    min-width: 340px;
+    height: 156px;
+    box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.04);
+    align-items: center;
+}
+
+.card-section{
+    margin-bottom: 26px;
+}
+
+.card-proyek .text-card{
+    margin-top: -25px;
+}
+
+.card-proyek .waktu {
+    text-align: center;
+    background: #5BC77A;
+    border-radius: 8px;
+    color: white;
+    width: 112px;
+    font-size: 15px;
+    padding: 2px 4px;
+}
+
+.card-proyek .judul-proyek{
+    color: #333333;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: -6px;
+    margin-bottom: -14px;
+}
+
+.card-proyek .pihak-terkait{
+    color: #93A2AF;
+    font-size: 18px;
+}
+
+.card-proyek .nilai-proyek{
+    color: #333333;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: -6px;
+    margin-bottom: -14px;
+}
+
+/* end of card proyek */
