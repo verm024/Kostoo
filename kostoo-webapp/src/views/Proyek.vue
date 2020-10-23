@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- judul and back button -->
-    <div class="judul-proyek">
+    <div class="judul-dan-back">
       <svg
         width="20"
         height="28"

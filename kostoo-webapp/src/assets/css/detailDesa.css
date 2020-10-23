@@ -1,0 +1,88 @@
+.container {
+    margin-left: 24px;
+    margin-top: 20px;
+    margin-right: 6px;
+    margin-bottom: 100px;
+}
+
+.deskripsi-desa {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+/* potensi desa */
+
+.list-potensi-desa{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.card-potensi-desa {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card-potensi-desa img{
+    background: #5BC77A;
+    box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
+    padding: 16px;
+    width: 36px;
+    height: 36px;
+}
+
+.card-potensi-desa p{
+    margin-top: 4px;
+    color: #3E3D3D;
+    font-weight: 200;
+    font-size: 16px;
+}
+
+/* end of potensi desa */
+
+
+/* pengalaman kerjasamma */
+
+.pengalaman-kerjasama{
+    display: flex;
+    overflow-x: auto;
+}
+
+.card-pengalaman{
+    margin-right: 24px;
+    padding: 20px;
+    background: #FFFFFF;
+    border: 1px solid #F1F4F2;
+    box-sizing: border-box;
+    border-radius: 8px;
+    min-width: 340px;
+    height: 132px;
+    box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.04);
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.card-pengalaman .judul-proyek{
+    color: #333333;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: -6px;
+    margin-bottom: -14px;
+}
+
+.card-pengalaman .pihak-terkait{
+    color: #93A2AF;
+    font-size: 18px;
+}
+.card-pengalaman .jangka-waktu{
+    color: #5BC77A;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+
+
+/* end of pengalaman kerjasama */
