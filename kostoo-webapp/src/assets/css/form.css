@@ -1,0 +1,31 @@
+.sub-form p{
+    color: #333333;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+.sub-form input{
+    border: 1px solid #DEE7EE;
+    font-size: 18px;
+    padding: 12px 24px;
+    width: 80%;
+    max-width: 500px;
+    color: #333333;
+    outline: none;
+    margin-top: -10px;
+    border-radius: 8px;
+}
+
+.sub-form textarea{
+    border: 1px solid #DEE7EE;
+    font-size: 18px;
+    padding: 12px 24px;
+    width: 80%;
+    max-width: 500px;
+    height: 150px;
+    color: #333333;
+    outline: none;
+    margin-top: -10px;
+    border-radius: 8px;
+}

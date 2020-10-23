@@ -6,6 +6,7 @@ import DashboardDesa from "../views/Dashboard/Desa";
 import CariDesa from "../views/CariDesa";
 import Proyek from "../views/Proyek";
 import DetailDesa from "../views/DetailDesa";
+import FormKerjasama from "../views/FormKerjasama";
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,10 @@ const routes = [
       {
         path: "desa/:id",
         component: DetailDesa
+      },
+      {
+        path: "form-kerjasama",
+        component: FormKerjasama
       }
     ]
   }
