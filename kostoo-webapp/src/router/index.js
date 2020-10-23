@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import DashboardInvestor from "../views/Dashboard/Investor";
 import DashboardDesa from "../views/Dashboard/Desa";
 import CariDesa from "../views/CariDesa";
+import Proyek from "../views/Proyek";
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,10 @@ const routes = [
       {
         path: "cari-desa",
         component: CariDesa
+      },
+      {
+        path: "proyek",
+        component: Proyek
       }
     ]
   }
