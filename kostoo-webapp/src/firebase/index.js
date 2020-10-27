@@ -1,6 +1,6 @@
-import firebase from 'firebase'
-import 'firebase/firestore'
-import 'firebase/storage'
+import firebase from "firebase";
+import "firebase/firestore";
+import "firebase/storage";
 
 const config = {
   apiKey: process.env.VUE_APP_FIREBASE_APIKEY,
@@ -11,16 +11,16 @@ const config = {
   messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGINGSENDERID,
   appId: process.env.VUE_APP_FIREBASE_APPID,
   measurementId: process.env.VUE_APP_FIREBASE_MEASUREMENTID
-}
+};
 
-firebase.initializeApp(config)
+firebase.initializeApp(config);
 
-let db = firebase.firestore()
-let auth = firebase.auth()
-let storage = firebase.storage()
+let db = firebase.firestore();
+let auth = firebase.auth();
+let storage = firebase.storage();
 
 export default {
-    db,
-    auth,
-    storage
-}
+  db,
+  auth,
+  storage
+};
