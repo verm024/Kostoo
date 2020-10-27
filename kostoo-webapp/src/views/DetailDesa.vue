@@ -31,9 +31,13 @@
     <!-- potensi desa -->
     <p class="judul-text">Potensi Desa</p>
     <div class="list-potensi-desa">
-      <div class="card-potensi-desa" v-for="(item, index) in data_desa.kategori" :key="index">
+      <div
+        class="card-potensi-desa"
+        v-for="(item, index) in data_desa.kategori"
+        :key="index"
+      >
         <img src="../assets/images/cabai.svg" alt="" srcset="" />
-        <p style="text-transform: capitalize">{{item}}</p>
+        <p style="text-transform: capitalize">{{ item }}</p>
       </div>
     </div>
     <!-- end of potensi desa -->
@@ -66,40 +70,45 @@
 </template>
 
 <script>
-import firebase from "../firebase"
-import { mapState } from 'vuex'
+import firebase from "../firebase";
+import { mapState } from "vuex";
 
 export default {
-  data(){
-    return{
+  data() {
+    return {
       data_desa: ""
-    }
+    };
   },
-  async created(){
-    let doc
+  async created() {
+    let doc;
     try {
-      doc = await firebase.db.collection("users").doc(this.$route.params.id).get()
+      doc = await firebase.db
+        .collection("users")
+        .doc(this.$route.params.id)
+        .get();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-    this.data_desa = doc.data()
+    this.data_desa = doc.data();
   },
-  async beforeRouteEnter (to, from, next) {
-    let doc
+  async beforeRouteEnter(to, from, next) {
+    let doc;
     try {
-      doc = await firebase.db.collection("users").doc(to.params.id).get()
+      doc = await firebase.db
+        .collection("users")
+        .doc(to.params.id)
+        .get();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-    console.log(doc)
-    if(!doc.exists){
-      next("/desa")
-    }
-    else{
-      next()
+    console.log(doc);
+    if (!doc.exists) {
+      next("/desa");
+    } else {
+      next();
     }
   }
-}
+};
 </script>
 
 <style scoped>
