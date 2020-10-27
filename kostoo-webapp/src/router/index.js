@@ -7,6 +7,8 @@ import CariDesa from "../views/CariDesa";
 import Proyek from "../views/Proyek";
 import DetailDesa from "../views/DetailDesa";
 import FormKerjasama from "../views/FormKerjasama";
+import Login from "../views/Auth/Login";
+import Register from "../views/Auth/Register";
 
 Vue.use(VueRouter);
 
@@ -40,6 +42,16 @@ const routes = [
       {
         path: "form-kerjasama",
         component: FormKerjasama
+      },
+      {
+        path: "login",
+        name: "Login",
+        component: Login
+      },
+      {
+        path: "register",
+        name: "Register",
+        component: Register
       }
     ]
   }
