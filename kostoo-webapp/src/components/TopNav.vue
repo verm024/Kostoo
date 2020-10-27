@@ -29,7 +29,7 @@
     </svg>
 
     <h3 class="nama-halaman">
-      Proyek
+      {{ $route.name ? $route.name : "Kostoo" }}
     </h3>
 
     <svg
