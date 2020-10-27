@@ -45,8 +45,32 @@
         fill="#5BC77A"
       />
     </svg>
+    <button @click="logout">Logout</button>
   </div>
 </template>
+
+<script>
+import firebase from "../firebase";
+
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    async logout() {
+      this.$store.commit("setCurrentUser", null);
+      this.$store.commit("setUserProfile", null);
+      try {
+        await firebase.auth.signOut();
+      } catch (error) {
+        console.error(error);
+      }
+      this.$router.push("/login");
+    }
+  }
+};
+</script>
+
 <style scoped>
 @import url("../assets/css/navbar.css");
 </style>
