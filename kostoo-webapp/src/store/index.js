@@ -26,5 +26,9 @@ export default new Vuex.Store({
     } 
   },
   modules: {},
-  plugins: [createPersistedState]
+  getters: {
+    currentUser: state => { return state.currentUser },
+    userProfile: state => { return state.userProfile },
+  },
+  plugins: [createPersistedState()]
 });
