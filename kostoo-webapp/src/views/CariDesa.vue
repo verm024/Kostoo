@@ -29,7 +29,7 @@
       </div>
       <!-- end of card desa -->
 
-       <!-- card desa -->
+      <!-- card desa -->
       <div class="card-desa">
         <div class="text-card">
           <p class="nama-desa">Desa Jendi</p>
@@ -57,7 +57,7 @@
       </div>
       <!-- end of card desa -->
 
-       <!-- card desa -->
+      <!-- card desa -->
       <div class="card-desa">
         <div class="text-card">
           <p class="nama-desa">Desa Jendi</p>
@@ -85,7 +85,7 @@
       </div>
       <!-- end of card desa -->
 
-       <!-- card desa -->
+      <!-- card desa -->
       <div class="card-desa">
         <div class="text-card">
           <p class="nama-desa">Desa Jendi</p>
