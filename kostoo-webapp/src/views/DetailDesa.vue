@@ -15,7 +15,7 @@
         />
       </svg>
 
-      <p>Desa Mangunan</p>
+      <p>{{ data_desa.nama_desa }}</p>
     </div>
     <!-- end of judul and back button -->
 
@@ -23,9 +23,7 @@
     <div class="deskripsi-desa">
       <p class="judul-text">Deskripsi Desa</p>
       <p class="deskripsi">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud
+        {{ data_desa.deskripsi_desa }}
       </p>
     </div>
     <!-- end of deskripsi desa -->
@@ -33,24 +31,9 @@
     <!-- potensi desa -->
     <p class="judul-text">Potensi Desa</p>
     <div class="list-potensi-desa">
-      <div class="card-potensi-desa">
+      <div class="card-potensi-desa" v-for="(item, index) in data_desa.kategori" :key="index">
         <img src="../assets/images/cabai.svg" alt="" srcset="" />
-        <p>Cabai</p>
-      </div>
-
-      <div class="card-potensi-desa">
-        <img src="../assets/images/padi.svg" alt="" srcset="" />
-        <p>Padi</p>
-      </div>
-
-      <div class="card-potensi-desa">
-        <img src="../assets/images/jagung.svg" alt="" srcset="" />
-        <p>Jagung</p>
-      </div>
-
-      <div class="card-potensi-desa">
-        <img src="../assets/images/singkong.svg" alt="" srcset="" />
-        <p>Singkong</p>
+        <p style="text-transform: capitalize">{{item}}</p>
       </div>
     </div>
     <!-- end of potensi desa -->
@@ -81,6 +64,44 @@
     <!-- end of pengalaman kerjasama -->
   </div>
 </template>
+
+<script>
+import firebase from "../firebase"
+import { mapState } from 'vuex'
+
+export default {
+  data(){
+    return{
+      data_desa: ""
+    }
+  },
+  async created(){
+    let doc
+    try {
+      doc = await firebase.db.collection("users").doc(this.$route.params.id).get()
+    } catch (error) {
+      console.error(error)
+    }
+    this.data_desa = doc.data()
+  },
+  async beforeRouteEnter (to, from, next) {
+    let doc
+    try {
+      doc = await firebase.db.collection("users").doc(to.params.id).get()
+    } catch (error) {
+      console.error(error)
+    }
+    console.log(doc)
+    if(!doc.exists){
+      next("/desa")
+    }
+    else{
+      next()
+    }
+  }
+}
+</script>
+
 <style scoped>
 @import url("../assets/css/detailDesa.css");
 </style>

@@ -58,7 +58,7 @@ const routes = [
         component: DetailDesa,
         meta: {
           requiresLogin: true,
-          allowedRole: "investor"
+          allowedRole: "investor+desa"
         }
       },
       {
