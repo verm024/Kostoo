@@ -60,17 +60,14 @@ export default {
       kategori: [
         {
           name: "Singkong",
-          value: "singkong",
           selected: false
         },
         {
           name: "Cabai",
-          value: "cabai",
           selected: false
         },
         {
           name: "Pepaya",
-          value: "pepaya",
           selected: false
         }
       ]
@@ -91,12 +88,11 @@ export default {
       let registerData;
       this.kategori.forEach(element => {
         if (element.selected) {
-          this.register_form.kategori.push(element.value);
+          this.register_form.kategori.push(element.name);
         }
       });
       if (this.register_form.role == "desa") {
         registerData = {
-          email: this.register_form.email,
           role: this.register_form.role,
           nama_desa: this.register_form.nama_desa,
           deskripsi_desa: this.register_form.deskripsi_desa,
@@ -106,7 +102,6 @@ export default {
         };
       } else {
         registerData = {
-          email: this.register_form.email,
           role: this.register_form.role
         };
       }
