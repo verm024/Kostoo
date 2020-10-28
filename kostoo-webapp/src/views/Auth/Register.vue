@@ -22,6 +22,16 @@
         v-model="register_form.deskripsi_desa"
         placeholder="Deksripsi Desa"
       />
+      <input
+        type="text"
+        v-model="register_form.kota_desa"
+        placeholder="Kota/Kabupaten Desa"
+      />
+      <input
+        type="text"
+        v-model="register_form.provinsi_desa"
+        placeholder="Provinsi"
+      />
       <div v-for="(item, index) in kategori" :key="index">
         <input type="checkbox" v-model="item.selected" />
         <label>{{ item.name }}</label>
@@ -43,6 +53,8 @@ export default {
         role: "desa",
         nama_desa: "",
         deskripsi_desa: "",
+        kota_desa: "",
+        provinsi_desa: "",
         kategori: []
       },
       kategori: [
@@ -88,6 +100,8 @@ export default {
           role: this.register_form.role,
           nama_desa: this.register_form.nama_desa,
           deskripsi_desa: this.register_form.deskripsi_desa,
+          kota_desa: this.register_form.kota_desa,
+          provinsi_desa: this.register_form.provinsi_desa,
           kategori: this.register_form.kategori
         };
       } else {
