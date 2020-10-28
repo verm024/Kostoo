@@ -116,8 +116,12 @@
       <!-- card desa -->
       <div class="card-desa" v-for="(item, index) in list_desa" :key="index">
         <div class="text-card">
-          <p class="nama-desa">{{ item.nama_desa }}</p>
-          <p class="lokasi">{{ item.kota_desa }}, {{ item.provinsi_desa }}</p>
+          <p class="nama-desa" @click="$router.push('/desa/' + item.id)">
+            {{ item.nama_desa }}
+          </p>
+          <p class="lokasi" style="text-transform: capitalize">
+            {{ item.kota_desa }}, {{ item.provinsi_desa }}
+          </p>
 
           <div class="list-potensi-desa">
             <span v-for="(kategori, i) in item.kategori" :key="i">{{
