@@ -37,7 +37,7 @@
         :key="index"
       >
         <img src="../assets/images/cabai.svg" alt="" srcset="" />
-        <p style="text-transform: capitalize">{{ item }}</p>
+        <p>{{ item }}</p>
       </div>
     </div>
     <!-- end of potensi desa -->
