@@ -108,7 +108,7 @@ export default {
       }
       this.$store.commit("setCurrentUser", user);
       this.$store.dispatch("fetchUserProfile");
-      this.$router.push("/desa");
+      this.$router.push("/");
     }
   }
 };
