@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-nav">
-    <a class="nav-object" href="">
+    <a class="nav-object" @click="$router.push('/proyek')">
       <svg
         width="23"
         height="22"
@@ -16,7 +16,7 @@
       <span class="active">Proyek</span>
     </a>
 
-    <a class="nav-object" href="">
+    <a class="nav-object" @click="$router.push('/cari-desa')">
       <svg
         width="23"
         height="23"
@@ -33,7 +33,7 @@
       <span>Cari Desa</span>
     </a>
 
-    <a class="nav-object" href="">
+    <a class="nav-object" @click="$router.push('/cari-desa')">
       <svg
         width="29"
         height="27"

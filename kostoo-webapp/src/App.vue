@@ -8,20 +8,18 @@
 
 <script>
 export default {
-  data(){
-    return{
-
-    }
+  data() {
+    return {};
   },
   watch: {
-    '$route': {
+    $route: {
       handler: (to, from) => {
-          document.title = to.name ? (to.name + " - Kostoo") : "Kostoo"
+        document.title = to.name ? to.name + " - Kostoo" : "Kostoo";
       },
       immediate: true
     }
-  },
-}
+  }
+};
 </script>
 
 <style>
