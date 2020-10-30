@@ -79,7 +79,8 @@ export default {
         jangka_proyek: this.form_kerjasama.jangka_proyek,
         status_proyek: "waiting",
         desa: firebase.db.collection("users").doc(this.$route.params.id),
-        investor: firebase.db.collection("users").doc(this.currentUser.uid)
+        investor: firebase.db.collection("users").doc(this.currentUser.uid),
+        tanggal_diajukan: new Date()
       };
       try {
         await firebase.db.collection("proyek").add(data);
