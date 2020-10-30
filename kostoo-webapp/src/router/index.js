@@ -85,7 +85,7 @@ const routes = [
         }
       },
       {
-        path: "form-kerjasama",
+        path: "form-kerjasama/:id",
         component: FormKerjasama,
         name: "Form Kerjasama",
         meta: {

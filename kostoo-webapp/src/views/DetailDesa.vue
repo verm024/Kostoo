@@ -63,7 +63,9 @@
     </div>
 
     <div style="text-align:center">
-      <button class="orange-button">Ajak Kerjasama</button>
+      <button class="orange-button" @click="$router.push('/form-kerjasama/' + $route.params.id)">
+        Ajak Kerjasama
+      </button>
     </div>
     <!-- end of pengalaman kerjasama -->
   </div>
