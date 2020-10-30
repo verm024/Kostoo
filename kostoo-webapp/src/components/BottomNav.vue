@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-nav">
-    <a class="nav-object" @click="$router.push('/proyek')">
+    <a class="nav-object" @click="$router.push('/investor')">
       <svg
         width="23"
         height="22"
