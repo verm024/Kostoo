@@ -14,7 +14,7 @@ export default {
   watch: {
     $route: {
       handler: (to, from) => {
-        document.title = to.name ? to.name + " - Kostoo" : "Kostoo";
+        document.title = to.meta.title ? to.meta.title + " - Kostoo" : "Kostoo";
       },
       immediate: true
     }

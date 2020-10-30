@@ -19,65 +19,96 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      title: "Home"
+    },
 
     children: [
       {
         path: "investor",
         component: DashboardInvestor,
+        name: "Dashboard Investor",
         meta: {
           requiresLogin: true,
-          allowedRole: "investor"
+          allowedRole: "investor",
+          title: "Dashboard"
         }
       },
       {
         path: "desa",
         component: DashboardDesa,
+        name: "Dashboard",
         meta: {
           requiresLogin: true,
-          allowedRole: "desa"
+          allowedRole: "desa",
+          title: "Dashboard Desa"
         }
       },
       {
         path: "cari-desa",
         component: CariDesa,
+        name: "Cari Desa",
         meta: {
           requiresLogin: true,
-          allowedRole: "investor+desa"
+          allowedRole: "investor+desa",
+          title: "Cari Desa"
         }
       },
       {
         path: "proyek",
         component: Proyek,
+        name: "Proyek",
         meta: {
           requiresLogin: true,
-          allowedRole: "investor"
+          allowedRole: "investor",
+          title: "Proyek"
+        }
+      },
+      {
+        path: "proyek/:id",
+        component: Proyek,
+        name: "Detail Proyek",
+        meta: {
+          requiresLogin: true,
+          allowedRole: "investor",
+          title: "Detail Proyek"
         }
       },
       {
         path: "desa/:id",
         component: DetailDesa,
+        name: "Detail Desa",
         meta: {
           requiresLogin: true,
-          allowedRole: "investor+desa"
+          allowedRole: "investor+desa",
+          title: "Detail Desa"
         }
       },
       {
         path: "form-kerjasama",
         component: FormKerjasama,
+        name: "Form Kerjasama",
         meta: {
           requiresLogin: true,
-          allowedRole: "investor+desa"
+          allowedRole: "investor+desa",
+          title: "Ajukan Kerjasama"
         }
       },
       {
         path: "login",
         name: "Login",
-        component: Login
+        component: Login,
+        meta: {
+          title: "Login"
+        }
       },
       {
         path: "register",
         name: "Register",
-        component: Register
+        component: Register,
+        meta: {
+          title: "Register"
+        }
       }
     ]
   }
