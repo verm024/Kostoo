@@ -101,10 +101,14 @@ export default {
     } catch (error) {
       console.error(error);
     }
-    console.log(doc);
+    let data = doc.data()
     if (!doc.exists) {
       next("/desa");
-    } else {
+    } 
+    else if(data.role == "investor"){
+      next('/desa')
+    }
+    else {
       next();
     }
   }

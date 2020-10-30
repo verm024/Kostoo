@@ -34,10 +34,12 @@ export default {
       } catch (error) {
         console.error(error);
       }
-      user = user.user;
-      this.$store.commit("setCurrentUser", user);
-      this.$store.dispatch("fetchUserProfile");
-      this.$router.push("/");
+      if(user){
+        user = user.user;
+        this.$store.commit("setCurrentUser", user);
+        this.$store.dispatch("fetchUserProfile");
+        this.$router.push("/");
+      }
     }
   }
 };

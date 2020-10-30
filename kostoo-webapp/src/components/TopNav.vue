@@ -45,12 +45,13 @@
         fill="#5BC77A"
       />
     </svg>
-    <button @click="logout">Logout</button>
+    <button v-if="currentUser" @click="logout">Logout</button>
   </div>
 </template>
 
 <script>
 import firebase from "../firebase";
+import {mapState} from 'vuex'
 
 export default {
   data() {
@@ -67,7 +68,10 @@ export default {
       }
       this.$router.push("/login");
     }
-  }
+  },
+  computed: {
+    ...mapState(['currentUser'])
+  },
 };
 </script>
 
