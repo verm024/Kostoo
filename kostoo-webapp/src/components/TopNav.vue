@@ -51,7 +51,7 @@
 
 <script>
 import firebase from "../firebase";
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   data() {
@@ -70,8 +70,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['currentUser'])
-  },
+    ...mapState(["currentUser"])
+  }
 };
 </script>
 

@@ -124,9 +124,9 @@
           </p>
 
           <div class="list-potensi-desa">
-            <span v-for="(kategori, i) in item.kategori" :key="i">{{
-              kategori
-            }}</span>
+            <span v-for="(kategori, i) in item.kategori" :key="i">
+              {{ kategori }}
+            </span>
           </div>
         </div>
 
