@@ -46,6 +46,7 @@
     text-decoration: none;
     color: #5BC77A;
     font-size: 18px;
+    cursor: pointer;
 }
 
 .nav-object span{
