@@ -1,3 +1,4 @@
+
 .sub-form p{
     color: #333333;
     font-size: 18px;
@@ -17,6 +18,12 @@
     border-radius: 8px;
 }
 
+.sub-form select{
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 16px;
+}
+
 .sub-form textarea{
     border: 1px solid #DEE7EE;
     font-size: 18px;
@@ -29,3 +36,33 @@
     margin-top: -10px;
     border-radius: 8px;
 }
+
+
+/* login dan register */
+.login{
+    margin-top: 56px;
+}
+
+.judul-halaman{
+    margin-top: 40px;
+    font-weight: 400;
+    color: #333333;
+    margin-bottom: -12px;
+    line-height: 45px;
+}
+
+.sub-judul-halaman{
+    color: #9E9E9E;
+    font-size: 18px;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+.box-potensi{
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* end of login dan register */

@@ -1,43 +1,126 @@
 <template>
-  <div class="register">
-    Register
-    <input type="text" placeholder="Email" v-model="register_form.email" />
-    <input
-      type="password"
-      placeholder="Password"
-      v-model="register_form.password"
-    />
-    <select name="" id="" v-model="register_form.role">
-      <option value="desa">Desa</option>
-      <option value="investor">Investor</option>
-    </select>
-    <div v-if="register_form.role == 'desa'">
-      <input
-        type="text"
-        v-model="register_form.nama_desa"
-        placeholder="Nama Desa"
-      />
-      <input
-        type="text"
-        v-model="register_form.deskripsi_desa"
-        placeholder="Deksripsi Desa"
-      />
-      <input
-        type="text"
-        v-model="register_form.kota_desa"
-        placeholder="Kota/Kabupaten Desa"
-      />
-      <input
-        type="text"
-        v-model="register_form.provinsi_desa"
-        placeholder="Provinsi"
-      />
-      <div v-for="(item, index) in kategori" :key="index">
-        <input type="checkbox" v-model="item.selected" />
-        <label>{{ item.name }}</label>
+  <div class="register container">
+    <h1 class="judul-halaman">
+      Registerasi di <br />
+      Koosto
+    </h1>
+    <p class="sub-judul-halaman">Silahkan isi form untuk mendapatkan akun</p>
+
+    <div class="list-form">
+      <div class="sub-form">
+        <p class="judul-input">
+          Email
+        </p>
+        <input
+          type="text"
+          placeholder="Masukan Email anda"
+          v-model="register_form.email"
+        />
+      </div>
+
+      <div class="sub-form">
+        <p class="judul-input">
+          Password
+        </p>
+        <input
+          type="password"
+          placeholder="Masukan Password anda"
+          v-model="register_form.password"
+        />
+      </div>
+
+      <div class="sub-form">
+        <p class="judul-input">
+          Sebagai Pihak ?
+        </p>
+        <select
+          style="margin-top:-10px"
+          name=""
+          id=""
+          v-model="register_form.role"
+        >
+          <option value="desa">Desa</option>
+          <option value="investor">Investor</option>
+        </select>
+      </div>
+
+      <div v-if="register_form.role == 'desa'">
+        <div class="sub-form">
+          <p class="judul-input">
+            Nama Desa
+          </p>
+
+          <input
+            type="text"
+            v-model="register_form.nama_desa"
+            placeholder="Masukan nama desa"
+          />
+        </div>
+
+        <div class="sub-form">
+          <p class="judul-input">
+            Deskripsi Desa
+          </p>
+
+          <textarea
+            placeholder="Masukan Deskripsi singkat desa"
+            name=""
+            id=""
+            cols="30"
+            v-model="register_form.deskripsi_desa"
+          ></textarea>
+        </div>
+
+        <div class="sub-form">
+          <p class="judul-input">
+            Kota/Kabupaten Desa
+          </p>
+          <input
+            type="text"
+            v-model="register_form.kota_desa"
+            placeholder="Kota/Kabupaten Desa"
+          />
+        </div>
+
+        <div class="sub-form">
+          <p class="judul-input">
+            Provinsi
+          </p>
+          <input
+            type="text"
+            v-model="register_form.provinsi_desa"
+            placeholder="Provinsi"
+          />
+        </div>
+
+        <div class="sub-form">
+          <p class="judul-input">
+            Potensi Desa
+          </p>
+
+          <div class="box-potensi">
+            <div v-for="(item, index) in kategori" :key="index">
+              <input
+                style="width:unset"
+                type="checkbox"
+                v-model="item.selected"
+              />
+              <label>{{ item.name }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center">
+        <button
+          style="background: #5BC77A;padding:12px 80px;font-size:18px;width:80%"
+          class="orange-button"
+          @click="register"
+        >
+          Register
+        </button>
       </div>
     </div>
-    <button @click="register">Register</button>
   </div>
 </template>
 
@@ -122,3 +205,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+@import url("../../assets/css/form.css");
+.sub-form {
+  margin-bottom: 30px;
+}
+</style>

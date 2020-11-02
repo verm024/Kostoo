@@ -16,7 +16,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "",
     name: "Home",
     component: Home,
     meta: {
@@ -93,24 +93,25 @@ const routes = [
           allowedRole: "investor+desa",
           title: "Ajukan Kerjasama"
         }
-      },
-      {
-        path: "login",
-        name: "Login",
-        component: Login,
-        meta: {
-          title: "Login"
-        }
-      },
-      {
-        path: "register",
-        name: "Register",
-        component: Register,
-        meta: {
-          title: "Register"
-        }
       }
     ]
+  },
+
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+    meta: {
+      title: "Login"
+    }
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+    meta: {
+      title: "Register"
+    }
   }
 ];
 
