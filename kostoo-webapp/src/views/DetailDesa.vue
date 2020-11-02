@@ -3,6 +3,7 @@
     <!-- judul and back button -->
     <div class="judul-dan-back">
       <svg
+        @click="back"
         width="20"
         height="28"
         viewBox="0 0 12 20"
@@ -45,16 +46,6 @@
     <!--pengalaman kerjasama  -->
     <p class="judul-text">Pengalaman Kerjasama</p>
     <div class="pengalaman-kerjasama">
-      <div class="card-pengalaman">
-        <p class="judul-proyek">Cabai Merah 300 Kg/Tahun</p>
-        <p class="pihak-terkait">PT. Nusa Indah</p>
-        <p class="jangka-waktu">Agustus 2018- September 2020</p>
-      </div>
-      <div class="card-pengalaman">
-        <p class="judul-proyek">Cabai Merah 300 Kg/Tahun</p>
-        <p class="pihak-terkait">PT. Nusa Indah</p>
-        <p class="jangka-waktu">Agustus 2018- September 2020</p>
-      </div>
       <div class="card-pengalaman">
         <p class="judul-proyek">Cabai Merah 300 Kg/Tahun</p>
         <p class="pihak-terkait">PT. Nusa Indah</p>
@@ -113,6 +104,12 @@ export default {
       next("/desa");
     } else {
       next();
+    }
+  },
+
+  methods: {
+    back() {
+      this.$router.go(-1);
     }
   }
 };

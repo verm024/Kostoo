@@ -26,5 +26,11 @@ firebase.auth.onAuthStateChanged(async user => {
       store,
       render: h => h(App)
     }).$mount("#app");
+    // masuk page awal sesuai rolenyaa
+    let role = store.state.userProfile.role;
+    if (role) {
+      if (role === "desa") router.push("/desa");
+      else router.push("/investor");
+    }
   }
 });

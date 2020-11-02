@@ -16,7 +16,12 @@
       <span class="active">Proyek</span>
     </a>
 
-    <a class="nav-object" @click="$router.push('/cari-desa')">
+    <!-- cari desa untuk investor -->
+    <a
+      v-if="userProfile.role === 'investor'"
+      class="nav-object"
+      @click="$router.push('/cari-desa')"
+    >
       <svg
         width="23"
         height="23"
@@ -31,6 +36,28 @@
       </svg>
 
       <span>Cari Desa</span>
+    </a>
+
+    <!-- portofolio untuk desa -->
+    <a
+      v-else
+      class="nav-object"
+      @click="$router.push(`/desa/${currentUser.uid}`)"
+    >
+      <svg
+        width="23"
+        height="27"
+        viewBox="0 0 23 27"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2.42105 11.1821V19.8793H6.05263V11.1821H2.42105ZM9.68421 11.1821V19.8793H13.3158V11.1821H9.68421ZM0 26.0916H23V22.3642H0V26.0916ZM16.9474 11.1821V19.8793H20.5789V11.1821H16.9474ZM11.5 0L0 6.21229V8.6972H23V6.21229L11.5 0Z"
+          fill="#B8C5D0"
+        />
+      </svg>
+
+      <span>Portofolio</span>
     </a>
 
     <a class="nav-object" @click="$router.push('/cari-desa')">
@@ -55,6 +82,18 @@
     </a>
   </div>
 </template>
+
+<script>
+import { mapState } from "vuex";
+
+export default {
+
+  computed: {
+    ...mapState(["userProfile", "currentUser"])
+  }
+};
+</script>
+
 <style scoped>
 @import url("../assets/css/navbar.css");
 </style>

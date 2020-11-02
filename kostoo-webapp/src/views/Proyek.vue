@@ -3,6 +3,7 @@
     <!-- judul and back button -->
     <div class="judul-dan-back">
       <svg
+        @click="back"
         width="20"
         height="28"
         viewBox="0 0 12 20"
@@ -85,6 +86,17 @@
     <!-- progress proyek -->
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    back() {
+      this.$router.go(-1);
+    }
+  }
+};
+</script>
+
 <style scoped>
 @import url("../assets/css/proyek.css");
 </style>
