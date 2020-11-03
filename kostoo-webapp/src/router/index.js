@@ -120,6 +120,10 @@ const routes = [
     meta: {
       title: "Register"
     }
+  },
+  {
+    path: "*",
+    name: "Unavailable"
   }
 ];
 
@@ -132,30 +136,34 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   let currentUser = firebase.auth.currentUser;
   let requiresLogin = to.matched.some(x => x.meta.requiresLogin);
-  if (currentUser) {
-    if (requiresLogin) {
-      if (to.meta.allowedRole.includes(store.state.userProfile.role)) {
-        next();
-      } else {
-        next("/" + store.state.userProfile.role);
-      }
-    } else {
-      if (to.name == "Register" || to.name == "Login") {
-        next("/" + store.state.userProfile.role);
-      } else if (to.name == "Home") {
-        next("/" + store.state.userProfile.role);
-      } else {
-        next();
-      }
-    }
+  if (to.name == "Unavailable") {
+    next("/" + store.state.userProfile.role);
   } else {
-    if (requiresLogin) {
-      next("/login");
+    if (currentUser) {
+      if (requiresLogin) {
+        if (to.meta.allowedRole.includes(store.state.userProfile.role)) {
+          next();
+        } else {
+          next("/" + store.state.userProfile.role);
+        }
+      } else {
+        if (to.name == "Register" || to.name == "Login") {
+          next("/" + store.state.userProfile.role);
+        } else if (to.name == "Home") {
+          next("/" + store.state.userProfile.role);
+        } else {
+          next();
+        }
+      }
     } else {
-      if (to.name == "Home") {
+      if (requiresLogin) {
         next("/login");
       } else {
-        next();
+        if (to.name == "Home") {
+          next("/login");
+        } else {
+          next();
+        }
       }
     }
   }
