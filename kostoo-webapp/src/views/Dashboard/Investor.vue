@@ -9,6 +9,8 @@
           class="card-proyek"
           v-for="(item, index) in menunggu_konfirmasi"
           :key="index"
+          @click="$router.push('/proyek/' + item.id)"
+          style="cursor: pointer"
         >
           <div class="text-card">
             <p class="waktu">
@@ -53,6 +55,8 @@
           class="card-proyek"
           v-for="(item, index) in dalam_pengerjaan"
           :key="index"
+          @click="$router.push('/proyek/' + item.id)"
+          style="cursor: pointer"
         >
           <div class="text-card">
             <p class="judul-proyek">{{ item.nama_proyek }}</p>
@@ -83,7 +87,13 @@
       <h3 class="judul-card">Selesai</h3>
       <div class="list-card-proyek">
         <!-- card -->
-        <div class="card-proyek" v-for="(item, index) in selesai" :key="index">
+        <div
+          class="card-proyek"
+          v-for="(item, index) in selesai"
+          :key="index"
+          @click="$router.push('/proyek/' + item.id)"
+          style="cursor: pointer"
+        >
           <div class="text-card">
             <p class="waktu">
               {{
