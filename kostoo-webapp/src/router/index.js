@@ -20,7 +20,8 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "Home"
+      title: "Home",
+      navCategory: "proyek"
     },
 
     children: [
@@ -31,7 +32,8 @@ const routes = [
         meta: {
           requiresLogin: true,
           allowedRole: "investor",
-          title: "Dashboard"
+          title: "Dashboard",
+          navCategory: "proyek"
         }
       },
       {
@@ -41,7 +43,8 @@ const routes = [
         meta: {
           requiresLogin: true,
           allowedRole: "desa",
-          title: "Dashboard Desa"
+          title: "Dashboard Desa",
+          navCategory: "proyek"
         }
       },
       {
@@ -51,7 +54,8 @@ const routes = [
         meta: {
           requiresLogin: true,
           allowedRole: "investor+desa",
-          title: "Cari Desa"
+          title: "Cari Desa",
+          navCategory: "cari"
         }
       },
       {
@@ -61,7 +65,8 @@ const routes = [
         meta: {
           requiresLogin: true,
           allowedRole: "investor",
-          title: "Proyek"
+          title: "Proyek",
+          navCategory: "proyek"
         }
       },
       {
@@ -71,7 +76,8 @@ const routes = [
         meta: {
           requiresLogin: true,
           allowedRole: "investor",
-          title: "Detail Proyek"
+          title: "Detail Proyek",
+          navCategory: "proyek"
         }
       },
       {
@@ -81,7 +87,8 @@ const routes = [
         meta: {
           requiresLogin: true,
           allowedRole: "investor+desa",
-          title: "Detail Desa"
+          title: "Detail Desa",
+          navCategory: "cari+portofolio"
         }
       },
       {
@@ -91,7 +98,8 @@ const routes = [
         meta: {
           requiresLogin: true,
           allowedRole: "investor+desa",
-          title: "Ajukan Kerjasama"
+          title: "Ajukan Kerjasama",
+          navCategory: "cari"
         }
       }
     ]
