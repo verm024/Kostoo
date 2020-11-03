@@ -111,6 +111,25 @@ export default {
         );
       }
     }
+  },
+  async beforeRouteEnter(to, from, next) {
+    let doc;
+    try {
+      doc = await firebase.db
+        .collection("users")
+        .doc(to.params.id)
+        .get();
+    } catch (error) {
+      console.error(error);
+    }
+    let data = doc.data();
+    if (!doc.exists) {
+      next("/investor");
+    } else if (data.role == "investor") {
+      next("/investor");
+    } else {
+      next();
+    }
   }
 };
 </script>

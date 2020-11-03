@@ -99,9 +99,9 @@ export default {
     }
     let data = doc.data();
     if (!doc.exists) {
-      next("/desa");
+      next("/investor");
     } else if (data.role == "investor") {
-      next("/desa");
+      next("/investor");
     } else {
       next();
     }
@@ -114,7 +114,7 @@ export default {
   },
   computed: {
     ...mapState(["currentUser", "userProfile"])
-  },
+  }
 };
 </script>
 

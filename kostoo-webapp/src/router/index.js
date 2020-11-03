@@ -142,7 +142,7 @@ router.beforeEach((to, from, next) => {
     } else {
       if (to.name == "Register" || to.name == "Login") {
         next("/" + store.state.userProfile.role);
-      } else if(to.name == "Home"){
+      } else if (to.name == "Home") {
         next("/" + store.state.userProfile.role);
       } else {
         next();
@@ -152,11 +152,10 @@ router.beforeEach((to, from, next) => {
     if (requiresLogin) {
       next("/login");
     } else {
-      if(to.name == "Home"){
-        next("/login")
-      }
-      else{
-        next()
+      if (to.name == "Home") {
+        next("/login");
+      } else {
+        next();
       }
     }
   }
