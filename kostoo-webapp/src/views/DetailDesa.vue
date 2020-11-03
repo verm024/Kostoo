@@ -53,7 +53,7 @@
         @click="$router.push('/proyek/' + item.id)"
       >
         <p class="judul-proyek">{{ item.nama_proyek }}</p>
-        <p class="pihak-terkait">{{ item.investor.role }}</p>
+        <p class="pihak-terkait">{{ item.investor.nama_perusahaan }}</p>
         <p class="jangka-waktu">
           {{ formatDate(item.tanggal_diterima.seconds) }} -
           {{ formatDate(item.tanggal_selesai.seconds) }}

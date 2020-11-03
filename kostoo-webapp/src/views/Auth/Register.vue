@@ -111,6 +111,20 @@
         </div>
       </div>
 
+      <div v-else>
+        <div class="sub-form">
+          <p class="judul-input">
+            Nama Perusahaan
+          </p>
+
+          <input
+            type="text"
+            v-model="register_form.nama_perusahaan"
+            placeholder="Masukan nama desa"
+          />
+        </div>
+      </div>
+
       <div style="text-align:center">
         <button
           style="background: #5BC77A;padding:12px 80px;font-size:18px;width:80%"
@@ -138,7 +152,8 @@ export default {
         deskripsi_desa: "",
         kota_desa: "",
         provinsi_desa: "",
-        kategori: []
+        kategori: [],
+        nama_perusahaan: ""
       },
       kategori: [
         {
@@ -185,7 +200,8 @@ export default {
         };
       } else {
         registerData = {
-          role: this.register_form.role
+          role: this.register_form.role,
+          nama_perusahaan: this.register_form.nama_perusahaan
         };
       }
       if (user.uid) {
