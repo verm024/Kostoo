@@ -70,14 +70,14 @@ export default {
   },
   methods: {
     async logout() {
-      this.$store.commit("setCurrentUser", null);
-      this.$store.commit("setUserProfile", null);
       try {
         await firebase.auth.signOut();
+        this.$store.commit("setCurrentUser", null);
+        this.$store.commit("setUserProfile", null);
+        this.$router.push("/login");
       } catch (error) {
         console.error(error);
       }
-      this.$router.push("/login");
     }
   },
   computed: {
