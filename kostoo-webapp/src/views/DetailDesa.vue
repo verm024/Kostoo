@@ -50,10 +50,14 @@
         class="card-pengalaman"
         v-for="(item, index) in pengalaman_kerjasama"
         :key="index"
+        @click="$router.push('/proyek/' + item.id)"
       >
         <p class="judul-proyek">{{ item.nama_proyek }}</p>
         <p class="pihak-terkait">{{ item.investor.role }}</p>
-        <p class="jangka-waktu">{{ item.jangka_proyek }}</p>
+        <p class="jangka-waktu">
+          {{ formatDate(item.tanggal_diterima.seconds) }} -
+          {{ formatDate(item.tanggal_selesai.seconds) }}
+        </p>
       </div>
     </div>
 
@@ -115,6 +119,27 @@ export default {
   methods: {
     back() {
       this.$router.go(-1);
+    },
+    formatDate(timestamp) {
+      let date = new Date(timestamp * 1000);
+      let months = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember"
+      ];
+      let month = months[date.getMonth()];
+      let year = date.getFullYear();
+      date = date.getDate();
+      return date + " " + month + " " + year;
     }
   },
   computed: {

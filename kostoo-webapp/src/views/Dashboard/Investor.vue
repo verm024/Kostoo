@@ -25,7 +25,7 @@
             </p>
             <p class="judul-proyek">{{ item.nama_proyek }}</p>
             <p class="pihak-terkait">{{ item.desa.nama_desa }}</p>
-            <p class="nilai-proyek">Rp. 100.000.000</p>
+            <p class="nilai-proyek">Rp. {{ item.harga_proyek }}</p>
           </div>
           <svg
             width="16"
@@ -61,7 +61,7 @@
           <div class="text-card">
             <p class="judul-proyek">{{ item.nama_proyek }}</p>
             <p class="pihak-terkait">{{ item.desa.nama_desa }}</p>
-            <p class="nilai-proyek">Rp. 100.000.000</p>
+            <p class="nilai-proyek">Rp. {{ item.harga_proyek }}</p>
           </div>
           <svg
             width="16"
@@ -107,7 +107,7 @@
             </p>
             <p class="judul-proyek">{{ item.nama_proyek }}</p>
             <p class="pihak-terkait">{{ item.desa.nama_desa }}</p>
-            <p class="nilai-proyek">Rp. 100.000.000</p>
+            <p class="nilai-proyek">Rp. {{ item.harga_proyek }}</p>
           </div>
 
           <svg

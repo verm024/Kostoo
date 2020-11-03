@@ -43,15 +43,22 @@
 
       <div class="sub-form">
         <p class="judul-input">
-          Jangka Waktu Pengerjaan
+          Harga Proyek
         </p>
-        <input v-model="form_kerjasama.jangka_proyek" type="text" />
+        <input v-model="form_kerjasama.harga_proyek" type="number" />
+      </div>
+
+      <div class="sub-form">
+        <p class="judul-input">
+          Batas Waktu Pengerjaan
+        </p>
+        <input v-model="form_kerjasama.deadline_proyek" type="date" />
       </div>
     </div>
     <!-- end of form -->
 
     <div style="text-align:center">
-      <button class="orange-button" @click="ajukanProyek">Selanjutnya</button>
+      <button class="orange-button" @click="ajukanProyek">Ajukan</button>
     </div>
   </div>
 </template>
@@ -66,7 +73,8 @@ export default {
       form_kerjasama: {
         nama_proyek: "",
         deskripsi_proyek: "",
-        jangka_proyek: ""
+        deadline_proyek: "",
+        harga_proyek: ""
       },
       detail_desa: []
     };
@@ -77,7 +85,8 @@ export default {
       let data = {
         nama_proyek: this.form_kerjasama.nama_proyek,
         deskripsi_proyek: this.form_kerjasama.deskripsi_proyek,
-        jangka_proyek: this.form_kerjasama.jangka_proyek,
+        deadline_proyek: new Date(this.form_kerjasama.deadline_proyek),
+        harga_proyek: this.form_kerjasama.harga_proyek,
         status_proyek: "waiting",
         desa: firebase.db.collection("users").doc(this.$route.params.id),
         investor: firebase.db.collection("users").doc(this.currentUser.uid),
