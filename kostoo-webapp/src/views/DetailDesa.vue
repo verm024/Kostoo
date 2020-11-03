@@ -46,10 +46,14 @@
     <!--pengalaman kerjasama  -->
     <p class="judul-text">Pengalaman Kerjasama</p>
     <div class="pengalaman-kerjasama">
-      <div class="card-pengalaman">
-        <p class="judul-proyek">Cabai Merah 300 Kg/Tahun</p>
-        <p class="pihak-terkait">PT. Nusa Indah</p>
-        <p class="jangka-waktu">Agustus 2018- September 2020</p>
+      <div
+        class="card-pengalaman"
+        v-for="(item, index) in pengalaman_kerjasama"
+        :key="index"
+      >
+        <p class="judul-proyek">{{ item.nama_proyek }}</p>
+        <p class="pihak-terkait">{{ item.investor.role }}</p>
+        <p class="jangka-waktu">{{ item.jangka_proyek }}</p>
       </div>
     </div>
 
@@ -72,7 +76,8 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      data_desa: ""
+      data_desa: "",
+      pengalaman_kerjasama: []
     };
   },
   async created() {
@@ -114,6 +119,25 @@ export default {
   },
   computed: {
     ...mapState(["currentUser", "userProfile"])
+  },
+  watch: {
+    get_pengalaman_kerjasama: {
+      immediate: true,
+      handler() {
+        this.$bind(
+          "pengalaman_kerjasama",
+          firebase.db
+            .collection("proyek")
+            .where(
+              "desa",
+              "==",
+              firebase.db.collection("users").doc(this.$route.params.id)
+            )
+            .where("status_proyek", "==", "finished")
+            .orderBy("tanggal_selesai", "desc")
+        );
+      }
+    }
   }
 };
 </script>
