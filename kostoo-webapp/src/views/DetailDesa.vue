@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <div style="text-align:center">
+    <div style="text-align:center" v-if="userProfile.role == 'investor'">
       <button
         class="orange-button"
         @click="$router.push('/form-kerjasama/' + $route.params.id)"
@@ -111,7 +111,10 @@ export default {
     back() {
       this.$router.go(-1);
     }
-  }
+  },
+  computed: {
+    ...mapState(["currentUser", "userProfile"])
+  },
 };
 </script>
 

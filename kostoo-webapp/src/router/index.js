@@ -53,7 +53,7 @@ const routes = [
         name: "Cari Desa",
         meta: {
           requiresLogin: true,
-          allowedRole: "investor+desa",
+          allowedRole: "investor",
           title: "Cari Desa",
           navCategory: "cari"
         }
@@ -75,7 +75,7 @@ const routes = [
         name: "Detail Proyek",
         meta: {
           requiresLogin: true,
-          allowedRole: "investor",
+          allowedRole: "investor+desa",
           title: "Detail Proyek",
           navCategory: "proyek"
         }
@@ -97,7 +97,7 @@ const routes = [
         name: "Form Kerjasama",
         meta: {
           requiresLogin: true,
-          allowedRole: "investor+desa",
+          allowedRole: "investor",
           title: "Ajukan Kerjasama",
           navCategory: "cari"
         }
