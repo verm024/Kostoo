@@ -3,8 +3,12 @@
     <div class="list-card-desa">
       <!-- card desa -->
       <div class="card-desa" v-for="(item, index) in list_desa" :key="index">
-        <div class="text-card">
-          <p class="nama-desa" @click="$router.push('/desa/' + item.id)">
+        <div
+          class="text-card"
+          @click="$router.push('/desa/' + item.id)"
+          style="cursor: pointer"
+        >
+          <p class="nama-desa">
             {{ item.nama_desa }}
           </p>
           <p class="lokasi" style="text-transform: capitalize">

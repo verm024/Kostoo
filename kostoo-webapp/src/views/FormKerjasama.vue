@@ -2,7 +2,8 @@
   <div class="container">
     <!-- judul and back button -->
     <div class="judul-dan-back">
-      <svg @click="back"
+      <svg
+        @click="back"
         width="20"
         height="28"
         viewBox="0 0 12 20"
