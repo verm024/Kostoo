@@ -11,7 +11,7 @@
       >
         <div class="text-card">
           <p class="nama-desa">
-            {{ item.nama_desa }}
+            Desa {{ item.nama_desa }}
           </p>
           <p class="lokasi" style="text-transform: capitalize">
             {{ item.kota_desa }}, {{ item.provinsi_desa }}

@@ -16,7 +16,7 @@
         />
       </svg>
 
-      <p>Ajukan Kerjasama dengan {{ detail_desa.nama_desa }}</p>
+      <p>Ajukan Kerjasama dengan Desa {{ detail_desa.nama_desa }}</p>
     </div>
     <!-- end of judul and back button -->
 

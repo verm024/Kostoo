@@ -24,7 +24,7 @@
               Hari yang lalu
             </p>
             <p class="judul-proyek">{{ item.nama_proyek }}</p>
-            <p class="pihak-terkait">{{ item.desa.nama_desa }}</p>
+            <p class="pihak-terkait">Desa {{ item.desa.nama_desa }}</p>
             <p class="nilai-proyek">Rp. {{ item.harga_proyek }}</p>
           </div>
           <svg
@@ -60,7 +60,7 @@
         >
           <div class="text-card">
             <p class="judul-proyek">{{ item.nama_proyek }}</p>
-            <p class="pihak-terkait">{{ item.desa.nama_desa }}</p>
+            <p class="pihak-terkait">Desa {{ item.desa.nama_desa }}</p>
             <p class="nilai-proyek">Rp. {{ item.harga_proyek }}</p>
           </div>
           <svg
@@ -106,7 +106,7 @@
               Hari yang lalu
             </p>
             <p class="judul-proyek">{{ item.nama_proyek }}</p>
-            <p class="pihak-terkait">{{ item.desa.nama_desa }}</p>
+            <p class="pihak-terkait">Desa {{ item.desa.nama_desa }}</p>
             <p class="nilai-proyek">Rp. {{ item.harga_proyek }}</p>
           </div>
 

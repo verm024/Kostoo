@@ -16,7 +16,7 @@
         />
       </svg>
 
-      <p>{{ data_desa.nama_desa }}</p>
+      <p>Desa {{ data_desa.nama_desa }}</p>
     </div>
     <!-- end of judul and back button -->
 
