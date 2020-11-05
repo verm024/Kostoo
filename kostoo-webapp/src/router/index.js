@@ -59,17 +59,6 @@ const routes = [
         }
       },
       {
-        path: "proyek",
-        component: Proyek,
-        name: "Proyek",
-        meta: {
-          requiresLogin: true,
-          allowedRole: "investor",
-          title: "Proyek",
-          navCategory: "proyek"
-        }
-      },
-      {
         path: "proyek/:id",
         component: Proyek,
         name: "Detail Proyek",

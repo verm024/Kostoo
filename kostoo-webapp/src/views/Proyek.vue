@@ -16,7 +16,7 @@
         />
       </svg>
 
-      <p>Kacang Kedelai 300 Kg/Bulan</p>
+      <p>{{ data_proyek.nama_proyek }}</p>
     </div>
     <!-- end of judul and back button -->
 
@@ -61,9 +61,7 @@
     <div class="deskripsi-proyek">
       <p class="judul-text">Deskripsi Proyek</p>
       <p class="deskripsi">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud
+        {{ data_proyek.deskripsi_proyek }}
       </p>
     </div>
 
@@ -88,10 +86,28 @@
 </template>
 
 <script>
+import firebase from "../firebase";
+
 export default {
+  data() {
+    return {
+      data_proyek: ""
+    };
+  },
   methods: {
     back() {
       this.$router.go(-1);
+    }
+  },
+  watch: {
+    get_data_proyek: {
+      immediate: true,
+      handler() {
+        this.$bind(
+          "data_proyek",
+          firebase.db.collection("proyek").doc(this.$route.params.id)
+        );
+      }
     }
   }
 };
