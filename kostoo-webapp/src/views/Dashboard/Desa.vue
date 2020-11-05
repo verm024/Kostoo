@@ -2,15 +2,29 @@
   <div class="dashboard">
     <!-- list card menunggu konfirmasi -->
     <div class="card-section">
-      <h3 class="judul-card">Menunggu Konfirmasi Desa</h3>
+      <h3 class="judul-card">Tawaran Kerjasama</h3>
       <div class="list-card-proyek">
         <!-- card -->
-        <div class="card-proyek">
+        <div
+          class="card-proyek"
+          v-for="(item, index) in tawaran_kerjasama"
+          :key="index"
+          @click="$router.push('/proyek/' + item.id)"
+        >
           <div class="text-card">
-            <p class="waktu">2 Hari yang lalu</p>
-            <p class="judul-proyek">Butuh Jagung 300 Kg/Bulan</p>
-            <p class="pihak-terkait">PT. Nusa Indah</p>
-            <p class="nilai-proyek">Rp. 100.000.000</p>
+            <p class="waktu">
+              {{
+                Math.floor(
+                  (Math.floor(Date.now() / 1000) -
+                    item.tanggal_diajukan.seconds) /
+                    86400
+                )
+              }}
+              Hari yang lalu
+            </p>
+            <p class="judul-proyek">{{ item.nama_proyek }}</p>
+            <p class="pihak-terkait">{{ item.investor.nama_perusahaan }}</p>
+            <p class="nilai-proyek">{{ item.harga_proyek }}</p>
           </div>
           <svg
             width="16"
@@ -36,11 +50,16 @@
       <h3 class="judul-card">Dalam Pengerjaan</h3>
       <div class="list-card-proyek">
         <!-- card -->
-        <div class="card-proyek">
+        <div
+          class="card-proyek"
+          v-for="(item, index) in dalam_pengerjaan"
+          :key="index"
+          @click="$router.push('/proyek/' + item.id)"
+        >
           <div class="text-card">
-            <p class="judul-proyek">Butuh Jagung 300 Kg/Bulan</p>
-            <p class="pihak-terkait">PT. Maju Makmur</p>
-            <p class="nilai-proyek">Rp. 100.000.000</p>
+            <p class="judul-proyek">{{ item.nama_proyek }}</p>
+            <p class="pihak-terkait">{{ item.investor.nama_perusahaan }}</p>
+            <p class="nilai-proyek">{{ item.harga_proyek }}</p>
           </div>
           <svg
             width="16"
@@ -66,12 +85,26 @@
       <h3 class="judul-card">Selesai</h3>
       <div class="list-card-proyek">
         <!-- card -->
-        <div class="card-proyek">
+        <div
+          class="card-proyek"
+          v-for="(item, index) in selesai"
+          :key="index"
+          @click="$router.push('/proyek/' + item.id)"
+        >
           <div class="text-card">
-            <p class="waktu">2 Hari yang lalu</p>
-            <p class="judul-proyek">Butuh Jagung 300 Kg/Bulan</p>
-            <p class="pihak-terkait">PT. Sanubari</p>
-            <p class="nilai-proyek">Rp. 100.000.000</p>
+            <p class="waktu">
+              {{
+                Math.floor(
+                  (Math.floor(Date.now() / 1000) -
+                    item.tanggal_selesai.seconds) /
+                    86400
+                )
+              }}
+              Hari yang lalu
+            </p>
+            <p class="judul-proyek">{{ item.nama_proyek }}</p>
+            <p class="pihak-terkait">{{ item.investor.nama_perusahaan }}</p>
+            <p class="nilai-proyek">{{ item.harga_proyek }}</p>
           </div>
 
           <svg
@@ -93,6 +126,68 @@
     <!-- end of list card Dalam Pengerjaan -->
   </div>
 </template>
+
+<script>
+import firebase from "../../firebase";
+import { mapState } from "vuex";
+
+export default {
+  data() {
+    return {
+      tawaran_kerjasama: [],
+      dalam_pengerjaan: [],
+      selesai: []
+    };
+  },
+  computed: {
+    ...mapState(["currentUser"])
+  },
+  watch: {
+    get_daftar_proyek: {
+      immediate: true,
+      handler() {
+        this.$bind(
+          "tawaran_kerjasama",
+          firebase.db
+            .collection("proyek")
+            .where(
+              "desa",
+              "==",
+              firebase.db.collection("users").doc(this.currentUser.uid)
+            )
+            .where("status_proyek", "==", "waiting")
+            .orderBy("tanggal_diajukan", "desc")
+        );
+        this.$bind(
+          "dalam_pengerjaan",
+          firebase.db
+            .collection("proyek")
+            .where(
+              "desa",
+              "==",
+              firebase.db.collection("users").doc(this.currentUser.uid)
+            )
+            .where("status_proyek", "==", "ongoing")
+            .orderBy("tanggal_diterima", "desc")
+        );
+        this.$bind(
+          "selesai",
+          firebase.db
+            .collection("proyek")
+            .where(
+              "desa",
+              "==",
+              firebase.db.collection("users").doc(this.currentUser.uid)
+            )
+            .where("status_proyek", "==", "finished")
+            .orderBy("tanggal_selesai", "desc")
+        );
+      }
+    }
+  }
+};
+</script>
+
 <style scoped>
 @import url("../../assets/css/dashboard.css");
 </style>
