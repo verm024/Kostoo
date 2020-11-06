@@ -54,6 +54,13 @@
         </p>
         <input v-model="form_kerjasama.deadline_proyek" type="date" />
       </div>
+
+      <div class="sub-form">
+        <p class="judul-input">
+          Detail Proyek
+        </p>
+        <input @change="handleFileChange" type="file" />
+      </div>
     </div>
     <!-- end of form -->
 
@@ -74,36 +81,67 @@ export default {
         nama_proyek: "",
         deskripsi_proyek: "",
         deadline_proyek: "",
-        harga_proyek: ""
+        harga_proyek: "",
+        detail_proyek: ""
       },
       detail_desa: []
     };
   },
   methods: {
     async ajukanProyek() {
-      let noErrorFound = true;
-      let deadlineDate = new Date(this.form_kerjasama.deadline_proyek);
-      deadlineDate.setHours(23, 59, 0, 0);
-      let data = {
-        nama_proyek: this.form_kerjasama.nama_proyek,
-        deskripsi_proyek: this.form_kerjasama.deskripsi_proyek,
-        deadline_proyek: deadlineDate,
-        harga_proyek: this.form_kerjasama.harga_proyek,
-        status_proyek: "waiting",
-        desa: firebase.db.collection("users").doc(this.$route.params.id),
-        investor: firebase.db.collection("users").doc(this.currentUser.uid),
-        tanggal_diajukan: new Date(),
-        progress: []
-      };
-      try {
-        await firebase.db.collection("proyek").add(data);
-      } catch (error) {
-        noErrorFound = false;
-        console.error(error);
-        alert(error);
+      if (
+        !(
+          this.form_kerjasama.nama_proyek == "" ||
+          this.form_kerjasama.deskripsi_proyek == "" ||
+          this.form_kerjasama.deadline_proyek == "" ||
+          this.form_kerjasama.harga_proyek == "" ||
+          this.form_kerjasama.detail_proyek == ""
+        )
+      ) {
+        let noErrorFound = true;
+        let deadlineDate = new Date(this.form_kerjasama.deadline_proyek);
+        deadlineDate.setHours(23, 59, 0, 0);
+        let data = {
+          nama_proyek: this.form_kerjasama.nama_proyek,
+          deskripsi_proyek: this.form_kerjasama.deskripsi_proyek,
+          deadline_proyek: deadlineDate,
+          harga_proyek: this.form_kerjasama.harga_proyek,
+          status_proyek: "waiting",
+          desa: firebase.db.collection("users").doc(this.$route.params.id),
+          investor: firebase.db.collection("users").doc(this.currentUser.uid),
+          tanggal_diajukan: new Date(),
+          progress: []
+        };
+        let addedData;
+        try {
+          addedData = await firebase.db.collection("proyek").add(data);
+        } catch (error) {
+          noErrorFound = false;
+          console.error(error);
+          alert(error);
+        }
+        if (noErrorFound) {
+          try {
+            let ref = await firebase.storage
+              .ref()
+              .child("/proyek/" + addedData.id + ".pdf");
+            let task = await ref.put(this.form_kerjasama.detail_proyek);
+          } catch (error) {
+            console.log(error);
+          }
+          this.$router.push("/investor");
+        }
       }
-      if (noErrorFound) {
-        this.$router.push("/investor");
+    },
+    handleFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) {
+        return;
+      }
+      if (!files[0].type.includes("pdf")) {
+        this.form_kerjasama.detail_proyek = "";
+      } else {
+        this.form_kerjasama.detail_proyek = files[0];
       }
     },
     back() {
