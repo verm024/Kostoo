@@ -24,7 +24,7 @@
             </p>
             <p class="judul-proyek">{{ item.nama_proyek }}</p>
             <p class="pihak-terkait">{{ item.investor.nama_perusahaan }}</p>
-            <p class="nilai-proyek">Rp. {{ item.harga_proyek }}</p>
+            <p class="nilai-proyek">{{ formatCurrency(item.harga_proyek) }}</p>
           </div>
           <svg
             width="16"
@@ -59,7 +59,7 @@
           <div class="text-card">
             <p class="judul-proyek">{{ item.nama_proyek }}</p>
             <p class="pihak-terkait">{{ item.investor.nama_perusahaan }}</p>
-            <p class="nilai-proyek">Rp. {{ item.harga_proyek }}</p>
+            <p class="nilai-proyek">{{ formatCurrency(item.harga_proyek) }}</p>
           </div>
           <svg
             width="16"
@@ -104,7 +104,7 @@
             </p>
             <p class="judul-proyek">{{ item.nama_proyek }}</p>
             <p class="pihak-terkait">{{ item.investor.nama_perusahaan }}</p>
-            <p class="nilai-proyek">Rp. {{ item.harga_proyek }}</p>
+            <p class="nilai-proyek">{{ formatCurrency(item.harga_proyek) }}</p>
           </div>
 
           <svg
@@ -130,6 +130,7 @@
 <script>
 import firebase from "../../firebase";
 import { mapState } from "vuex";
+import currencyFormatter from "currency-formatter";
 
 export default {
   data() {
@@ -141,6 +142,16 @@ export default {
   },
   computed: {
     ...mapState(["currentUser"])
+  },
+  methods: {
+    formatCurrency(number) {
+      return currencyFormatter.format(number, {
+        symbol: "Rp.",
+        thousand: ",",
+        precision: 0,
+        format: "%s %v"
+      });
+    }
   },
   watch: {
     get_daftar_proyek: {
