@@ -148,7 +148,8 @@ export default {
         deskripsi_progress: "",
         tanggal_progress: "",
         harga_progress: ""
-      }
+      },
+      detail_proyek: ""
     };
   },
   methods: {
@@ -215,6 +216,17 @@ export default {
   },
   computed: {
     ...mapState(["currentUser", "userProfile"])
+  },
+  async created() {
+    let ref = firebase.storage
+      .ref()
+      .child("/proyek/" + this.$route.params.id + ".pdf");
+    try {
+      let url = await ref.getDownloadURL();
+      this.detail_proyek = url;
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 </script>
