@@ -84,7 +84,15 @@
     <!-- end of detail proyek -->
 
     <!-- progress proyek -->
-    <div class="progress-proyek" v-if="data_proyek.status_proyek != 'waiting'">
+    <div
+      class="progress-proyek"
+      v-if="
+        !(
+          data_proyek.status_proyek == 'waiting' ||
+          data_proyek.status_proyek == 'waiting2'
+        )
+      "
+    >
       <p class="judul-text">Progress Proyek</p>
 
       <div class="content-progress">
@@ -132,6 +140,28 @@
       <button @click="tambahProgress">Tambah progress</button>
     </div>
     <!-- end of Temporary tambah progress -->
+
+    <!-- Temporary tambah MOU dan setujui proyek (desa) -->
+    <div
+      v-if="
+        userProfile.role == 'desa' && data_proyek.status_proyek == 'waiting'
+      "
+    >
+      <input @change="handleFileChange" type="file" />
+      <button @click="konfirmasiProyek">Konfirmasi</button>
+    </div>
+    <!-- end of Temporary tambah MOU dan setujui proyek (desa) -->
+
+    <!-- Temporary setujui proyek (investor) -->
+    <div
+      v-if="
+        userProfile.role == 'investor' &&
+          data_proyek.status_proyek == 'waiting2'
+      "
+    >
+      <button @click="setujuiProyek">Setujui</button>
+    </div>
+    <!-- end of Temporary setujui proyek (investor) -->
   </div>
 </template>
 
@@ -149,7 +179,10 @@ export default {
         tanggal_progress: "",
         harga_progress: ""
       },
-      detail_proyek: ""
+      detail_proyek: "",
+      form_konfirmasi: {
+        mou_proyek: ""
+      }
     };
   },
   methods: {
@@ -200,6 +233,43 @@ export default {
         } catch (error) {
           console.error(error);
         }
+      }
+    },
+    async konfirmasiProyek() {
+      if (this.form_konfirmasi.mou_proyek != "") {
+        let ref = firebase.storage
+          .ref()
+          .child("/mou/" + this.$route.params.id + ".pdf");
+        try {
+          let task = await ref.put(this.form_konfirmasi.mou_proyek);
+          await firebase.db
+            .collection("proyek")
+            .doc(this.$route.params.id)
+            .update({ status_proyek: "waiting2" });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    },
+    async setujuiProyek() {
+      try {
+        await firebase.db
+          .collection("proyek")
+          .doc(this.$route.params.id)
+          .update({ status_proyek: "ongoing" });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    handleFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) {
+        return;
+      }
+      if (!files[0].type.includes("pdf")) {
+        this.form_konfirmasi.mou_proyek = "";
+      } else {
+        this.form_konfirmasi.mou_proyek = files[0];
       }
     }
   },
