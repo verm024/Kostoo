@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="data_proyek">
     <!-- judul and back button -->
     <div class="judul-dan-back">
       <svg
@@ -24,14 +24,22 @@
     <div class="list-card-proyek">
       <div class="card-deadline">
         <div class="hari-tersisa">
-          <h3>20</h3>
+          <h3>
+            {{
+              Math.floor(
+                Math.floor(
+                  data_proyek.deadline_proyek.seconds - Date.now() / 1000
+                ) / 86400
+              )
+            }}
+          </h3>
           <p>
             Hari <br />
             Tersisa
           </p>
         </div>
         <p class="tanggal-deadline">
-          Deadline : 10/8/2020
+          Deadline : {{ formatDate(data_proyek.deadline_proyek.seconds) }}
         </p>
       </div>
 
@@ -65,8 +73,16 @@
       </p>
     </div>
 
+    <!-- Detail proyek -->
+    <div class="deskripsi-proyek">
+      <p class="judul-text">Detail Proyek</p>
+      <p class="deskripsi">
+        {{ data_proyek.deskripsi_proyek }}
+      </p>
+    </div>
+
     <!-- end of deskripsi proyek -->
-    <div class="progress-proyek">
+    <div class="progress-proyek" v-if="data_proyek.status_proyek != 'waiting'">
       <p class="judul-text">Progress Proyek</p>
 
       <div class="content-progress">
@@ -78,7 +94,9 @@
           <p class="judul">Membeli Bibit</p>
           <p class="deskripsi">Lorem Ipsum dolor amet sit veniam.</p>
         </div>
-        <button class="orange-button">Hubungi Desa</button>
+        <button class="orange-button" v-if="userProfile.role == 'investor'">
+          Hubungi Desa
+        </button>
       </div>
     </div>
     <!-- progress proyek -->
@@ -87,6 +105,7 @@
 
 <script>
 import firebase from "../firebase";
+import { mapState } from "vuex";
 
 export default {
   data() {
@@ -97,6 +116,13 @@ export default {
   methods: {
     back() {
       this.$router.go(-1);
+    },
+    formatDate(timestamp) {
+      let date = new Date(timestamp * 1000);
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      date = date.getDate();
+      return date + "/" + month + "/" + year;
     }
   },
   watch: {
@@ -109,6 +135,9 @@ export default {
         );
       }
     }
+  },
+  computed: {
+    ...mapState(["currentUser", "userProfile"])
   }
 };
 </script>

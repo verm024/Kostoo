@@ -82,10 +82,12 @@ export default {
   methods: {
     async ajukanProyek() {
       let noErrorFound = true;
+      let deadlineDate = new Date(this.form_kerjasama.deadline_proyek)
+      deadlineDate.setHours(23, 59, 0, 0)
       let data = {
         nama_proyek: this.form_kerjasama.nama_proyek,
         deskripsi_proyek: this.form_kerjasama.deskripsi_proyek,
-        deadline_proyek: new Date(this.form_kerjasama.deadline_proyek),
+        deadline_proyek: deadlineDate,
         harga_proyek: this.form_kerjasama.harga_proyek,
         status_proyek: "waiting",
         desa: firebase.db.collection("users").doc(this.$route.params.id),
