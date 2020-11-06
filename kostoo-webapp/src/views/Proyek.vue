@@ -102,6 +102,36 @@
       </div>
     </div>
     <!-- end of progress proyek -->
+
+    <!-- Temporary tambah progress -->
+    <div
+      v-if="
+        userProfile.role == 'investor' && data_proyek.status_proyek == 'waiting'
+      "
+    >
+      <input
+        type="text"
+        v-model="form_progress.nama_progress"
+        placeholder="Nama progress"
+      />
+      <input
+        type="text"
+        v-model="form_progress.deskripsi_progress"
+        placeholder="Deskripsi progress"
+      />
+      <input
+        type="date"
+        v-model="form_progress.tanggal_progress"
+        placeholder="Tanggal progress"
+      />
+      <input
+        type="number"
+        v-model="form_progress.harga_progress"
+        placeholder="Harga progress"
+      />
+      <button @click="tambahProgress">Tambah progress</button>
+    </div>
+    <!-- end of Temporary tambah progress -->
   </div>
 </template>
 
@@ -112,7 +142,13 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      data_proyek: ""
+      data_proyek: "",
+      form_progress: {
+        nama_progress: "",
+        deskripsi_progress: "",
+        tanggal_progress: "",
+        harga_progress: ""
+      }
     };
   },
   methods: {
@@ -125,6 +161,45 @@ export default {
       let year = date.getFullYear();
       date = date.getDate();
       return date + "/" + month + "/" + year;
+    },
+    async tambahProgress() {
+      if (
+        !(
+          this.form_progress.nama_progress == "" ||
+          this.form_progress.deskripsi_progress == "" ||
+          this.form_progress.tanggal_progress == "" ||
+          this.form_progress.harga_progress == ""
+        )
+      ) {
+        let currentProgress = this.data_proyek.progress;
+        for (let i = 0; i < currentProgress.length; i++) {
+          currentProgress[i].tanggal_progress = new Date(
+            currentProgress[i].tanggal_progress.seconds * 1000
+          );
+        }
+        let dataProgress = {
+          nama_progress: this.form_progress.nama_progress,
+          deskripsi_progress: this.form_progress.deskripsi_progress,
+          tanggal_progress: new Date(this.form_progress.tanggal_progress),
+          harga_progress: this.form_progress.harga_progress
+        };
+        currentProgress.push(dataProgress);
+        currentProgress.sort((a, b) => {
+          return b.tanggal_progress - a.tanggal_progress;
+        });
+        try {
+          await firebase.db
+            .collection("proyek")
+            .doc(this.$route.params.id)
+            .update({ progress: currentProgress });
+          this.form_progress.nama_progress = "";
+          this.form_progress.deskripsi_progress = "";
+          this.form_progress.tanggal_progress = "";
+          this.form_progress.harga_progress = "";
+        } catch (error) {
+          console.error(error);
+        }
+      }
     }
   },
   watch: {

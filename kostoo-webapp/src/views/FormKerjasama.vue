@@ -92,7 +92,8 @@ export default {
         status_proyek: "waiting",
         desa: firebase.db.collection("users").doc(this.$route.params.id),
         investor: firebase.db.collection("users").doc(this.currentUser.uid),
-        tanggal_diajukan: new Date()
+        tanggal_diajukan: new Date(),
+        progress: []
       };
       try {
         await firebase.db.collection("proyek").add(data);
