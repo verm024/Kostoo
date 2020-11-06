@@ -37,7 +37,7 @@
         v-for="(item, index) in data_desa.kategori"
         :key="index"
       >
-        <img src="../assets/images/cabai.svg" alt="" srcset="" />
+        <img :src="require(`@/assets/images/${item}.svg`)" alt="" srcset="" />
         <p>{{ item }}</p>
       </div>
     </div>

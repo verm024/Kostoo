@@ -165,7 +165,11 @@ export default {
           selected: false
         },
         {
-          name: "Pepaya",
+          name: "Jagung",
+          selected: false
+        },
+        {
+          name: "Padi",
           selected: false
         }
       ]
