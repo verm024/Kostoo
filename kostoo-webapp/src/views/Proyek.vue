@@ -72,16 +72,18 @@
         {{ data_proyek.deskripsi_proyek }}
       </p>
     </div>
+    <!-- end of deskripsi proyek -->
 
-    <!-- Detail proyek -->
+    <!-- detail proyek -->
     <div class="deskripsi-proyek">
       <p class="judul-text">Detail Proyek</p>
       <p class="deskripsi">
         {{ data_proyek.deskripsi_proyek }}
       </p>
     </div>
+    <!-- end of detail proyek -->
 
-    <!-- end of deskripsi proyek -->
+    <!-- progress proyek -->
     <div class="progress-proyek" v-if="data_proyek.status_proyek != 'waiting'">
       <p class="judul-text">Progress Proyek</p>
 
@@ -99,7 +101,7 @@
         </button>
       </div>
     </div>
-    <!-- progress proyek -->
+    <!-- end of progress proyek -->
   </div>
 </template>
 
