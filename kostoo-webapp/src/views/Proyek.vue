@@ -106,7 +106,7 @@
     <!-- Temporary tambah progress -->
     <div
       v-if="
-        userProfile.role == 'investor' && data_proyek.status_proyek == 'waiting'
+        userProfile.role == 'desa' && data_proyek.status_proyek == 'ongoing'
       "
     >
       <input
