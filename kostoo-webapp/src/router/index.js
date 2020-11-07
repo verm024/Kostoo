@@ -39,11 +39,11 @@ const routes = [
       {
         path: "desa",
         component: DashboardDesa,
-        name: "Dashboard",
+        name: "Dashboard Desa",
         meta: {
           requiresLogin: true,
           allowedRole: "desa",
-          title: "Dashboard Desa",
+          title: "Dashboard",
           navCategory: "proyek"
         }
       },

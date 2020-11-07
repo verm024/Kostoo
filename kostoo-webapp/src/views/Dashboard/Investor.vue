@@ -52,6 +52,57 @@
 
     <!-- end of list card menunggu konfirmasi -->
 
+    <!-- list card menunggu mou -->
+    <div class="card-section">
+      <h3 class="judul-card">Menunggu Konfirmasi MoU</h3>
+      <div v-if="menunggu_mou.length !== 0" class="list-card-proyek">
+        <!-- card -->
+        <div
+          class="card-proyek"
+          v-for="(item, index) in menunggu_mou"
+          :key="index"
+          @click="$router.push('/proyek/' + item.id)"
+          style="cursor: pointer"
+        >
+          <div class="text-card">
+            <p class="waktu">
+              {{
+                Math.floor(
+                  (Math.floor(Date.now() / 1000) - item.tanggal_mou.seconds) /
+                    86400
+                )
+              }}
+              Hari yang lalu
+            </p>
+            <p class="judul-proyek">{{ item.nama_proyek }}</p>
+            <p class="pihak-terkait">Desa {{ item.desa.nama_desa }}</p>
+            <p class="nilai-proyek">{{ formatCurrency(item.harga_proyek) }}</p>
+          </div>
+          <svg
+            width="16"
+            height="20"
+            viewBox="0 0 8 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1.41 0L0 1.41L4.58 6L0 10.59L1.41 12L7.41 6L1.41 0Z"
+              fill="#EC6B2A"
+            />
+          </svg>
+        </div>
+        <!-- end of card -->
+      </div>
+
+      <!-- empty state -->
+      <div v-else class="empty-state">
+        <p>Belum terdapat proyek yang sedang menunggu konfirmasi MoU ..</p>
+      </div>
+      <!-- end of empty state -->
+    </div>
+
+    <!-- end of list card menunggu mou -->
+
     <!-- list card Dalam Pengerjaan -->
     <div class="card-section">
       <h3 class="judul-card">Dalam Pengerjaan</h3>
@@ -158,6 +209,7 @@ export default {
   data() {
     return {
       menunggu_konfirmasi: [],
+      menunggu_mou: [],
       dalam_pengerjaan: [],
       selesai: []
     };
@@ -190,6 +242,18 @@ export default {
             )
             .where("status_proyek", "==", "waiting")
             .orderBy("tanggal_diajukan", "desc")
+        );
+        this.$bind(
+          "menunggu_mou",
+          firebase.db
+            .collection("proyek")
+            .where(
+              "investor",
+              "==",
+              firebase.db.collection("users").doc(this.currentUser.uid)
+            )
+            .where("status_proyek", "==", "waiting2")
+            .orderBy("tanggal_mou", "desc")
         );
         this.$bind(
           "dalam_pengerjaan",

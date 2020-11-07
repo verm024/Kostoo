@@ -135,7 +135,6 @@ export default {
       }
     },
     handleFileChange(e) {
-     
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) {
         return;
@@ -145,7 +144,6 @@ export default {
       } else {
         this.form_kerjasama.detail_proyek = files[0];
       }
-     
     },
     back() {
       this.$router.go(-1);

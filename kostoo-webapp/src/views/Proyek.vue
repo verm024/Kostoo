@@ -43,10 +43,16 @@
         </p>
       </div>
 
-      <div class="card-mou">
+      <div
+        class="card-mou"
+        v-if="data_proyek.status_proyek != 'waiting'"
+        @click="handleClickMou"
+      >
         <div class="text-card">
           <p class="judul">MoU Kerjasama</p>
-          <p class="tanggal-mou">10/8/2020</p>
+          <p class="tanggal-mou">
+            {{ formatDate(data_proyek.tanggal_mou.seconds) }}
+          </p>
         </div>
         <span>
           <svg
@@ -179,7 +185,10 @@ export default {
         tanggal_progress: "",
         harga_progress: ""
       },
-      detail_proyek: "",
+      file_proyek: {
+        detail_proyek: "",
+        mou_proyek: ""
+      },
       form_konfirmasi: {
         mou_proyek: ""
       }
@@ -271,6 +280,9 @@ export default {
       } else {
         this.form_konfirmasi.mou_proyek = files[0];
       }
+    },
+    handleClickMou() {
+      window.location.href = this.file_proyek.mou_proyek;
     }
   },
   watch: {
@@ -293,9 +305,20 @@ export default {
       .child("/proyek/" + this.$route.params.id + ".pdf");
     try {
       let url = await ref.getDownloadURL();
-      this.detail_proyek = url;
+      this.file_proyek.detail_proyek = url;
     } catch (error) {
       console.error(error);
+    }
+    if (this.data_proyek.status_proyek != "waiting") {
+      ref = firebase.storage
+        .ref()
+        .child("/mou/" + this.$route.params.id + ".pdf");
+      try {
+        let url = await ref.getDownloadURL();
+        this.file_proyek.mou_proyek = url;
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 };
