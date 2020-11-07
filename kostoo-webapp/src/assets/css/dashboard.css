@@ -54,6 +54,7 @@
     color: white;
     font-size: 15px;
     padding: 2px 4px;
+    width: fit-content;
 }
 
 .card-proyek .judul-proyek{

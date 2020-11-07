@@ -147,27 +147,29 @@
     </div>
     <!-- end of Temporary tambah progress -->
 
-    <!-- Temporary tambah MOU dan setujui proyek (desa) -->
+    <!-- Temporary tambah MOU dan konfirmasi proyek (desa) -->
     <div
       v-if="
         userProfile.role == 'desa' && data_proyek.status_proyek == 'waiting'
       "
     >
       <input @change="handleFileChange" type="file" />
-      <button @click="konfirmasiProyek">Konfirmasi</button>
+      <button @click="setujuiProyek">Setujui</button>
+      <button @click="tolakProyek">Tolak</button>
     </div>
-    <!-- end of Temporary tambah MOU dan setujui proyek (desa) -->
+    <!-- end of Temporary tambah MOU dan konfirmasi proyek (desa) -->
 
-    <!-- Temporary setujui proyek (investor) -->
+    <!-- Temporary konfirmasi proyek (investor) -->
     <div
       v-if="
         userProfile.role == 'investor' &&
           data_proyek.status_proyek == 'waiting2'
       "
     >
-      <button @click="setujuiProyek">Setujui</button>
+      <button @click="setujuiMou">Setujui</button>
+      <button @click="tolakMou">Tolak</button>
     </div>
-    <!-- end of Temporary setujui proyek (investor) -->
+    <!-- end of Temporary konfirmasi proyek (investor) -->
   </div>
 </template>
 
@@ -244,7 +246,7 @@ export default {
         }
       }
     },
-    async konfirmasiProyek() {
+    async setujuiProyek() {
       if (this.form_konfirmasi.mou_proyek != "") {
         let ref = firebase.storage
           .ref()
@@ -260,12 +262,32 @@ export default {
         }
       }
     },
-    async setujuiProyek() {
+    async tolakProyek() {
+      try {
+        await firebase.db
+          .collection("proyek")
+          .doc(this.$route.params.id)
+          .update({ status_proyek: "canceled" });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async setujuiMou() {
       try {
         await firebase.db
           .collection("proyek")
           .doc(this.$route.params.id)
           .update({ status_proyek: "ongoing" });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async tolakMou() {
+      try {
+        await firebase.db
+          .collection("proyek")
+          .doc(this.$route.params.id)
+          .update({ status_proyek: "waiting" });
       } catch (error) {
         console.error(error);
       }
