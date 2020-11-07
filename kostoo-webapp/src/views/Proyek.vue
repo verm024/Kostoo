@@ -84,7 +84,7 @@
     <div class="deskripsi-proyek">
       <p class="judul-text">Detail Proyek</p>
       <p class="deskripsi">
-        {{ data_proyek.deskripsi_proyek }}
+        <a :href="file_proyek.detail_proyek">Download</a>
       </p>
     </div>
     <!-- end of detail proyek -->
