@@ -15,6 +15,15 @@
 }
 
 /* card proyek */
+.empty-state{
+    margin-bottom: 60px;
+    margin-top: 40px;
+    font-weight: 200;
+    margin-left: 24px;
+    color: #454D58;
+}
+
+
 .card-proyek {
     justify-content: space-between;
     display: flex;
@@ -43,7 +52,6 @@
     background: #5BC77A;
     border-radius: 8px;
     color: white;
-    width: 112px;
     font-size: 15px;
     padding: 2px 4px;
 }

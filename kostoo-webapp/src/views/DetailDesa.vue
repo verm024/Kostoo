@@ -45,7 +45,7 @@
 
     <!--pengalaman kerjasama  -->
     <p class="judul-text">Pengalaman Kerjasama</p>
-    <div class="pengalaman-kerjasama">
+    <div v-if="pengalaman_kerjasama.length !== 0" class="pengalaman-kerjasama">
       <div
         class="card-pengalaman"
         v-for="(item, index) in pengalaman_kerjasama"
@@ -60,6 +60,12 @@
         </p>
       </div>
     </div>
+
+    <!-- empty state -->
+    <div v-else class="empty-state">
+      <p>Belum memiliki pengalaman kerjasama..</p>
+    </div>
+    <!-- end of empty state -->
 
     <div style="text-align:center" v-if="userProfile.role == 'investor'">
       <button

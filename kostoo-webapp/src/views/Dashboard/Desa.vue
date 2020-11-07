@@ -3,7 +3,7 @@
     <!-- list card menunggu konfirmasi -->
     <div class="card-section">
       <h3 class="judul-card">Tawaran Kerjasama</h3>
-      <div class="list-card-proyek">
+      <div v-if="tawaran_kerjasama !== 0" class="list-card-proyek">
         <!-- card -->
         <div
           class="card-proyek"
@@ -41,6 +41,12 @@
         </div>
         <!-- end of card -->
       </div>
+
+      <!-- empty state -->
+      <div v-else class="empty-state">
+        <p>Belum terdapat proyek yang sedang menunggu konfirmasi ..</p>
+      </div>
+      <!-- end of empty state -->
     </div>
 
     <!-- end of list card menunggu konfirmasi -->
@@ -48,7 +54,7 @@
     <!-- list card Dalam Pengerjaan -->
     <div class="card-section">
       <h3 class="judul-card">Dalam Pengerjaan</h3>
-      <div class="list-card-proyek">
+      <div v-if="dalam_pengerjaan.length !== 0" class="list-card-proyek">
         <!-- card -->
         <div
           class="card-proyek"
@@ -76,6 +82,11 @@
         </div>
         <!-- end of card -->
       </div>
+      <!-- empty state -->
+      <div v-else class="empty-state">
+        <p>Belum terdapat proyek yang sedang dalam pengerjaan ..</p>
+      </div>
+      <!-- end of empty state -->
     </div>
 
     <!-- end of list card Dalam Pengerjaan -->
@@ -83,7 +94,7 @@
     <!-- list card Dalam Pengerjaan -->
     <div class="card-section">
       <h3 class="judul-card">Selesai</h3>
-      <div class="list-card-proyek">
+      <div v-if="selesai.length !== 0" class="list-card-proyek">
         <!-- card -->
         <div
           class="card-proyek"
@@ -122,6 +133,12 @@
         </div>
         <!-- end of card -->
       </div>
+
+      <!-- empty state -->
+      <div v-else class="empty-state">
+        <p>Belum terdapat proyek yang telah selesai..</p>
+      </div>
+      <!-- end of empty state -->
     </div>
     <!-- end of list card Dalam Pengerjaan -->
   </div>
