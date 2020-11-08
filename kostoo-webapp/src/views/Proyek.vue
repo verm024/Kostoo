@@ -334,7 +334,7 @@ export default {
         await firebase.db
           .collection("proyek")
           .doc(this.$route.params.id)
-          .update({ status_proyek: "ongoing" });
+          .update({ status_proyek: "ongoing", tanggal_diterima: new Date() });
       } catch (error) {
         console.error(error);
       }
