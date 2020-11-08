@@ -1,6 +1,5 @@
 <template>
   <div class="container" v-if="data_proyek">
-    <p>{{data_proyek}}</p>
     <!-- judul and back button -->
     <div class="judul-dan-back">
       <svg
@@ -24,8 +23,11 @@
     <!-- card informasi proyek-->
     <div class="list-card-proyek">
       <div class="card-deadline">
-        <div class="hari-tersisa">
-          <h3>
+        <div
+          class="hari-tersisa"
+          v-if="data_proyek.status_proyek != 'finished'"
+        >
+          <h3 v-if="Date.now() / 1000 < data_proyek.deadline_proyek.seconds">
             {{
               Math.floor(
                 Math.floor(
@@ -34,9 +36,66 @@
               )
             }}
           </h3>
+          <h3 class="orange-color" v-else>
+            {{
+              Math.floor(
+                Math.floor(
+                  Date.now() / 1000 - data_proyek.deadline_proyek.seconds
+                ) / 86400
+              )
+            }}
+          </h3>
           <p>
             Hari <br />
-            Tersisa
+            <span
+              v-if="Date.now() / 1000 < data_proyek.deadline_proyek.seconds"
+            >
+              Tersisa
+            </span>
+            <span v-else>
+              Terlewat
+            </span>
+          </p>
+        </div>
+        <div class="hari-tersisa" v-else>
+          <h3
+            v-if="
+              data_proyek.tanggal_selesai.seconds <
+                data_proyek.deadline_proyek.seconds
+            "
+          >
+            {{
+              Math.floor(
+                Math.floor(
+                  data_proyek.deadline_proyek.seconds -
+                    data_proyek.tanggal_selesai.seconds
+                ) / 86400
+              )
+            }}
+          </h3>
+          <h3 class="orange-color" v-else>
+            {{
+              Math.floor(
+                Math.floor(
+                  data_proyek.tanggal_selesai.seconds -
+                    data_proyek.deadline_proyek.seconds
+                ) / 86400
+              )
+            }}
+          </h3>
+          <p>
+            Hari <br />
+            <span
+              v-if="
+                data_proyek.tanggal_selesai.seconds <
+                  data_proyek.deadline_proyek.seconds
+              "
+            >
+              Lebih Cepat
+            </span>
+            <span v-else>
+              Terlambat
+            </span>
           </p>
         </div>
         <p class="tanggal-deadline">
@@ -351,7 +410,7 @@ export default {
         };
         currentProgress.push(dataProgress);
         currentProgress.sort((a, b) => {
-          return b.tanggal_progress - a.tanggal_progress;
+          return a.tanggal_progress - b.tanggal_progress;
         });
         try {
           await firebase.db
@@ -499,5 +558,9 @@ label {
 #file-chosen {
   margin-left: 0.3rem;
   font-family: sans-serif;
+}
+
+.orange-color {
+  color: #ec6b2a;
 }
 </style>
