@@ -110,7 +110,8 @@ export default {
           desa: firebase.db.collection("users").doc(this.$route.params.id),
           investor: firebase.db.collection("users").doc(this.currentUser.uid),
           tanggal_diajukan: new Date(),
-          progress: []
+          progress: [],
+          pengajuan_pembatalan: ""
         };
 
         let addedData;

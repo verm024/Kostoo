@@ -199,6 +199,9 @@
       "
     >
       <p class="judul-text">Progress Proyek</p>
+      <p class="deskripsi" v-if="data_proyek.progress.length == 0">
+        Belum ada progress
+      </p>
 
       <div class="list-content-progress">
         <div
@@ -242,7 +245,7 @@
 
     <!-- end of progress proyek -->
 
-    <!-- Temporary tambah MOU dan setujui proyek (desa) -->
+    <!-- tambah MOU dan setujui proyek (desa) -->
 
     <div
       v-if="
@@ -269,9 +272,9 @@
       </div>
     </div>
 
-    <!-- end of Temporary tambah MOU dan setujui proyek (desa) -->
+    <!-- end of tambah MOU dan setujui proyek (desa) -->
 
-    <!-- Temporary konfirmasi proyek (investor) -->
+    <!-- konfirmasi proyek (investor) -->
     <div
       id="button-konfirmasi-mou"
       v-if="
@@ -282,9 +285,9 @@
       <button class="setuju" @click="setujuiMou">Setujui</button>
       <button class="tolak" @click="tolakMou">Tolak</button>
     </div>
-    <!-- end of Temporary konfirmasi proyek (investor) -->
+    <!-- end of konfirmasi proyek (investor) -->
 
-    <!-- Temporary tambah progress -->
+    <!-- tambah progress -->
     <div style="top:100%" ref="boxProgress" class="black-background">
       <div class="form-update-progress">
         <div style="padding:8px 22px" class="list-form">
@@ -348,7 +351,51 @@
         </div>
       </div>
     </div>
-    <!-- end of Temporary tambah progress -->
+    <!-- end of tambah progress -->
+
+    <!-- Temporary selesaikan proyek -->
+    <div
+      v-if="
+        data_proyek.status_proyek == 'ongoing' &&
+          userProfile.role == 'desa' &&
+          data_proyek.pengajuan_pembatalan == ''
+      "
+    >
+      <button @click="selesaikanProyek">Selesaikan</button>
+    </div>
+    <!-- end of Temporary selesaikan proyek -->
+
+    <!-- Temporary ajukan pembatalan -->
+    <div
+      v-if="
+        data_proyek.status_proyek == 'ongoing' &&
+          data_proyek.pengajuan_pembatalan == ''
+      "
+    >
+      <button @click="() => ajukanPembatalan(userProfile.role)">
+        Ajukan Pembatalan
+      </button>
+    </div>
+
+    <div
+      v-if="
+        data_proyek.status_proyek == 'ongoing' &&
+          data_proyek.pengajuan_pembatalan == userProfile.role
+      "
+    >
+      <button @click="batalkanPengajuan">Batalkan pengajuan pembatalan</button>
+    </div>
+
+    <div
+      v-if="
+        data_proyek.status_proyek == 'ongoing' &&
+          data_proyek.pengajuan_pembatalan != '' &&
+          data_proyek.pengajuan_pembatalan != userProfile.role
+      "
+    >
+      <button @click="terimaPengajuan">Terima pengajuan pembatalan</button>
+    </div>
+    <!-- end of ajukan pembatalan -->
   </div>
 </template>
 
@@ -387,7 +434,8 @@ export default {
       if (status === "waiting2")
         return "MoU telah diupload, sedang menunggu konfirmasi..";
       if (status === "ongoing") return "Sedang dalam pengerjaan..";
-      else return "Telah selesai dilaksanakan..";
+      if (status === "finished") return "Telah selesai dilaksanakan..";
+      else return "Proyek dibatalkan";
     },
 
     formatDate(timestamp) {
@@ -458,7 +506,10 @@ export default {
         await firebase.db
           .collection("proyek")
           .doc(this.$route.params.id)
-          .update({ status_proyek: "canceled" });
+          .update({
+            status_proyek: "canceled",
+            tanggal_dibatalkan: new Date()
+          });
       } catch (error) {
         console.error(error);
       }
@@ -479,6 +530,49 @@ export default {
           .collection("proyek")
           .doc(this.$route.params.id)
           .update({ status_proyek: "waiting" });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async selesaikanProyek() {
+      try {
+        await firebase.db
+          .collection("proyek")
+          .doc(this.$route.params.id)
+          .update({ status_proyek: "finished", tanggal_selesai: new Date() });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async ajukanPembatalan(role) {
+      try {
+        await firebase.db
+          .collection("proyek")
+          .doc(this.$route.params.id)
+          .update({ pengajuan_pembatalan: role });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async batalkanPengajuan() {
+      try {
+        await firebase.db
+          .collection("proyek")
+          .doc(this.$route.params.id)
+          .update({ pengajuan_pembatalan: "" });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async terimaPengajuan() {
+      try {
+        await firebase.db
+          .collection("proyek")
+          .doc(this.$route.params.id)
+          .update({
+            status_proyek: "canceled",
+            tanggal_dibatalkan: new Date()
+          });
       } catch (error) {
         console.error(error);
       }
