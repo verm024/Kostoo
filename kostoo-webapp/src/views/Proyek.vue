@@ -131,6 +131,16 @@
     </div>
     <!-- end of card informasi proyek-->
 
+    <!-- pihak terlibat -->
+    <div id="pihak-terlibat">
+      <p v-if="data_proyek.investor.nama_perusahaan">
+        <span style="font-weight:bold">{{ data_proyek.investor.nama_perusahaan }}</span>
+         sebagai Investor
+      </p>
+      <p v-if="data_proyek.desa.nama_desa"> <span style="font-weight:bold">{{ data_proyek.desa.nama_desa }}</span>   sebagai Desa</p>
+    </div>
+    <!-- end of pihak terlibat -->
+
     <!-- deskripsi proyek -->
     <div class="deskripsi-proyek">
       <p class="judul-text">Deskripsi Proyek</p>
@@ -169,14 +179,14 @@
     </div>
     <!-- end of detail proyek -->
 
-    <!-- detail proyek -->
+    <!-- Status Proyek proyek -->
     <div class="deskripsi-proyek">
       <p class="judul-text">Status Proyek</p>
       <p class="deskripsi">
         {{ menentukanStatus(data_proyek.status_proyek) }}
       </p>
     </div>
-    <!-- end of detail proyek -->
+    <!-- end of status proyek -->
 
     <!-- progress proyek -->
     <div

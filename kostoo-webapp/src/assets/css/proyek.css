@@ -235,3 +235,22 @@
     display: flex;
     overflow-x: auto
 }
+
+#pihak-terlibat{
+    text-align: center;
+    display: flex;
+}
+
+#pihak-terlibat p{
+    margin-right: 20px;
+    width: 45%;
+    padding: 4px 10px;
+    color: #5BC77A;
+    border: 1px solid #5BC77A;
+    text-decoration: none;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    background: white;
+    border-radius: 8px;
+}
