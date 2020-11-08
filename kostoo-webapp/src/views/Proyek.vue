@@ -1,5 +1,6 @@
 <template>
   <div class="container" v-if="data_proyek">
+    <p>{{data_proyek}}</p>
     <!-- judul and back button -->
     <div class="judul-dan-back">
       <svg
@@ -130,51 +131,47 @@
     >
       <p class="judul-text">Progress Proyek</p>
 
-      <div class="content-progress">
-        <div class="counter-progress">
-          <span>2</span>
-        </div>
+      <div class="list-content-progress">
+        <div
+          :key="index"
+          v-for="(progress, index) in data_proyek.progress"
+          class="content-progress"
+        >
+          <div class="counter-progress">
+            <span>{{ index + 1 }}</span>
+          </div>
 
-        <div class="yang-dilakukan">
-          <p class="judul">Membeli Bibit</p>
-          <p class="deskripsi">Lorem Ipsum dolor amet sit veniam.</p>
+          <div class="yang-dilakukan">
+            <p class="judul">{{ progress.nama_progress }}</p>
+            <p class="deskripsi">
+              {{ progress.deskripsi_progress }} <br />
+              pada tanggal
+              {{ formatDate(progress.tanggal_progress.seconds) }}
+            </p>
+            <p style="margin-top:8px;color:#333333" class="deskripsi">
+              Pengeluaran : {{ formatCurrency(progress.harga_progress) }}
+            </p>
+          </div>
         </div>
+      </div>
+      <div style="text-align:center">
         <button class="orange-button" v-if="userProfile.role == 'investor'">
           Hubungi Desa
         </button>
+
+        <button
+          @click="openCloseFormUpdate"
+          v-if="
+            userProfile.role == 'desa' && data_proyek.status_proyek == 'ongoing'
+          "
+          class="orange-button"
+        >
+          Perbarui Progress
+        </button>
       </div>
     </div>
-    <!-- end of progress proyek -->
 
-    <!-- Temporary tambah progress -->
-    <div
-      v-if="
-        userProfile.role == 'desa' && data_proyek.status_proyek == 'ongoing'
-      "
-    >
-      <input
-        type="text"
-        v-model="form_progress.nama_progress"
-        placeholder="Nama progress"
-      />
-      <input
-        type="text"
-        v-model="form_progress.deskripsi_progress"
-        placeholder="Deskripsi progress"
-      />
-      <input
-        type="date"
-        v-model="form_progress.tanggal_progress"
-        placeholder="Tanggal progress"
-      />
-      <input
-        type="number"
-        v-model="form_progress.harga_progress"
-        placeholder="Harga progress"
-      />
-      <button @click="tambahProgress">Tambah progress</button>
-    </div>
-    <!-- end of Temporary tambah progress -->
+    <!-- end of progress proyek -->
 
     <!-- Temporary tambah MOU dan setujui proyek (desa) -->
 
@@ -217,12 +214,79 @@
       <button class="tolak" @click="tolakMou">Tolak</button>
     </div>
     <!-- end of Temporary konfirmasi proyek (investor) -->
+
+    <!-- Temporary tambah progress -->
+    <div style="top:100%" ref="boxProgress" class="black-background">
+      <div class="form-update-progress">
+        <div style="padding:8px 22px" class="list-form">
+          <div class="sub-form">
+            <p class="judul-input">
+              Judul
+            </p>
+            <input
+              type="text"
+              v-model="form_progress.nama_progress"
+              placeholder="Nama progress"
+            />
+          </div>
+
+          <div class="sub-form">
+            <p class="judul-input">
+              Deskripsi
+            </p>
+            <input
+              type="text"
+              v-model="form_progress.deskripsi_progress"
+              placeholder="Deskripsi progress"
+            />
+          </div>
+
+          <div class="sub-form">
+            <p class="judul-input">
+              Tanggal
+            </p>
+            <input
+              type="date"
+              v-model="form_progress.tanggal_progress"
+              placeholder="Tanggal progress"
+            />
+          </div>
+
+          <div class="sub-form">
+            <p class="judul-input">
+              Biaya
+            </p>
+            <input
+              type="number"
+              v-model="form_progress.harga_progress"
+              placeholder="Total Pengeluaran"
+            />
+          </div>
+
+          <div style="text-align:center;margin-top:20px">
+            <button class="orange-button" @click="tambahProgress">
+              Perbarui progress
+            </button>
+
+            <button
+              @click="openCloseFormUpdate"
+              style="color:#EC6B2A;background:white"
+              class="orange-button"
+            >
+              Batal
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of Temporary tambah progress -->
   </div>
 </template>
 
 <script>
 import firebase from "../firebase";
 import { mapState } from "vuex";
+import currencyFormatter from "currency-formatter";
 
 export default {
   data() {
@@ -298,6 +362,7 @@ export default {
           this.form_progress.deskripsi_progress = "";
           this.form_progress.tanggal_progress = "";
           this.form_progress.harga_progress = "";
+          this.openCloseFormUpdate();
         } catch (error) {
           console.error(error);
         }
@@ -363,6 +428,20 @@ export default {
     },
     handleClickMou() {
       window.location.href = this.file_proyek.mou_proyek;
+    },
+
+    openCloseFormUpdate() {
+      let box = this.$refs.boxProgress;
+      if (box.style.top === "100%") box.style.top = 0;
+      else box.style.top = "100%";
+    },
+    formatCurrency(number) {
+      return currencyFormatter.format(number, {
+        symbol: "Rp.",
+        thousand: ",",
+        precision: 0,
+        format: "%s %v"
+      });
     }
   },
   watch: {

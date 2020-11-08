@@ -3,7 +3,7 @@
     <!-- list card menunggu konfirmasi -->
     <div class="card-section">
       <h3 class="judul-card">Tawaran Kerjasama</h3>
-      <div v-if="tawaran_kerjasama !== 0" class="list-card-proyek">
+      <div v-if="tawaran_kerjasama.length !== 0" class="list-card-proyek">
         <!-- card -->
         <div
           class="card-proyek"
