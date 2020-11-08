@@ -1,16 +1,16 @@
-.container{
+.container {
     margin-left: 24px;
     margin-top: 20px;
     margin-right: 6px;
     margin-bottom: 100px;
 }
 
-.judul-dan-back{
+.judul-dan-back {
     display: flex;
     align-items: center;
 }
 
-.judul-dan-back p{
+.judul-dan-back p {
     margin-right: 20px;
     color: #333333;
     font-weight: 700;
@@ -18,7 +18,7 @@
     margin-left: 18px;
 }
 
-.card-deadline{
+.card-deadline {
     background: #FFFFFF;
     border: 1px solid #F6F8F9;
     box-sizing: border-box;
@@ -28,33 +28,33 @@
     box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.04);
 }
 
-.hari-tersisa{
+.hari-tersisa {
     display: flex;
     align-items: center;
     margin-top: -32px;
 }
 
-.hari-tersisa h3{
+.hari-tersisa h3 {
     font-weight: 700;
     font-size: 40px;
     color: #5BC77A;
 }
 
-.hari-tersisa p{
+.hari-tersisa p {
     color: #89969F;
     font-size: 16px;
     font-weight: 500;
     margin-left: 8px;
 }
 
-.tanggal-deadline{
+.tanggal-deadline {
     margin-top: -38px;
     color: #89969F;
     font-weight: 300;
     font-size: 16px;
 }
 
-.card-mou{
+.card-mou {
     margin-left: 20px;
     display: flex;
     background: #FFFFFF;
@@ -66,36 +66,37 @@
     align-items: center;
 }
 
-.card-mou .judul{
+.card-mou .judul {
     color: #333333;
     font-weight: 500;
     font-size: 16px;
 }
 
-.card-mou .tanggal-mou{
+.card-mou .tanggal-mou {
     margin-top: -16px;
     color: #89969F;
     font-weight: 300;
 }
 
-.card-mou span{
+.card-mou span {
     display: flex;
     align-items: center;
     color: #EC6B2A;
     margin-left: 12px;
 }
 
-.deskripsi-proyek{
+.deskripsi-proyek {
     margin-top: 20px;
+    margin-bottom: 25px;
 }
 
-.judul-text{
+.judul-text {
     font-size: 18px;
     color: #333333;
     font-weight: 600;
 }
 
-.deskripsi{
+.deskripsi {
     margin-top: -8px;
     margin-right: 20px;
     font-size: 16px;
@@ -105,15 +106,15 @@
     text-align: justify;
 }
 
-.progress-proyek{
+.progress-proyek {
     margin: 20px 0px;
 }
 
-.content-progress{
+.content-progress {
     text-align: center;
 }
 
-.counter-progress{
+.counter-progress {
     margin: auto;
     color: white;
     background-color: #5BC77A;
@@ -128,27 +129,82 @@
     justify-content: center;
 }
 
-.yang-dilakukan .judul{
+.yang-dilakukan .judul {
     margin-top: 10px;
     font-size: 18px;
     color: #333333;
     font-weight: 600;
 }
 
-.yang-dilakukan .deskripsi{
+.yang-dilakukan .deskripsi {
     width: 60%;
     margin: 0px auto;
     text-align: center;
     margin-top: -10px;
 }
 
-.orange-button{
+.orange-button {
     padding: 8px 12px;
     color: white;
     border: none;
     font-size: 16px;
     font-weight: 700;
     background: #EC6B2A;
-border-radius: 8px;
-margin: 20px;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+.download-button {
+    width: 116px;
+    padding: 6px 10px;
+    color: white;
+    border: none;
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 700;
+    background: #5BC77A;
+    border-radius: 8px;
+}
+
+.download-button svg{
+    margin: 2px;
+    margin-right: 12px;
+}
+
+#button-konfirmasi-mou{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 40px;
+
+}
+
+#button-konfirmasi-mou .setuju{
+    padding: 10px 40px;
+    letter-spacing: 2px;
+    color: white;
+    border: none;
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 700;
+    background: #5BC77A;
+    border-radius: 8px; 
+}
+
+#button-konfirmasi-mou .tolak{
+    padding: 10px 40px;
+    letter-spacing: 2px;
+    color: #5BC77A;
+    border: 1px solid #5BC77A;
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 700;
+    background: white;
+    border-radius: 8px; 
 }

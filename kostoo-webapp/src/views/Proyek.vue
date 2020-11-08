@@ -84,7 +84,36 @@
     <div class="deskripsi-proyek">
       <p class="judul-text">Detail Proyek</p>
       <p class="deskripsi">
-        <a :href="file_proyek.detail_proyek">Download</a>
+        <a class="download-button" :href="file_proyek.detail_proyek">
+          <svg
+            id="bold"
+            enable-background="new 0 0 24 24"
+            height="22"
+            viewBox="0 0 24 24"
+            width="22"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#ffffff"
+              d="m12 16c-.205 0-.401-.084-.542-.232l-5.25-5.5c-.455-.476-.117-1.268.542-1.268h2.75v-5.75c0-.689.561-1.25 1.25-1.25h2.5c.689 0 1.25.561 1.25 1.25v5.75h2.75c.659 0 .997.792.542 1.268l-5.25 5.5c-.141.148-.337.232-.542.232z"
+            />
+            <path
+              fill="#ffffff"
+              d="m22.25 22h-20.5c-.965 0-1.75-.785-1.75-1.75v-.5c0-.965.785-1.75 1.75-1.75h20.5c.965 0 1.75.785 1.75 1.75v.5c0 .965-.785 1.75-1.75 1.75z"
+            />
+          </svg>
+
+          Download</a
+        >
+      </p>
+    </div>
+    <!-- end of detail proyek -->
+
+    <!-- detail proyek -->
+    <div class="deskripsi-proyek">
+      <p class="judul-text">Status Proyek</p>
+      <p class="deskripsi">
+        {{ menentukanStatus(data_proyek.status_proyek) }}
       </p>
     </div>
     <!-- end of detail proyek -->
@@ -147,27 +176,45 @@
     </div>
     <!-- end of Temporary tambah progress -->
 
-    <!-- Temporary tambah MOU dan konfirmasi proyek (desa) -->
+    <!-- Temporary tambah MOU dan setujui proyek (desa) -->
+
     <div
       v-if="
         userProfile.role == 'desa' && data_proyek.status_proyek == 'waiting'
       "
+      class="deskripsi-proyek"
     >
-      <input @change="handleFileChange" type="file" />
-      <button @click="setujuiProyek">Setujui</button>
-      <button @click="tolakProyek">Tolak</button>
+      <p class="judul-text">Upload MoU dan Konfirmasi</p>
+      <div>
+        <!-- input file -->
+        <input @change="handleFileChange" type="file" id="actual-btn" hidden />
+
+        <!-- Button upload -->
+        <label for="actual-btn">Upload MoU</label>
+
+        <!-- nama file -->
+        <span class="deskripsi" id="file-chosen">Belum upload file</span>
+
+        <div style="text-align:center;margin-top:24px">
+          <button class="orange-button" @click="setujuiProyek">
+            Konfirmasi Proyek
+          </button>
+        </div>
+      </div>
     </div>
-    <!-- end of Temporary tambah MOU dan konfirmasi proyek (desa) -->
+
+    <!-- end of Temporary tambah MOU dan setujui proyek (desa) -->
 
     <!-- Temporary konfirmasi proyek (investor) -->
     <div
+      id="button-konfirmasi-mou"
       v-if="
         userProfile.role == 'investor' &&
           data_proyek.status_proyek == 'waiting2'
       "
     >
-      <button @click="setujuiMou">Setujui</button>
-      <button @click="tolakMou">Tolak</button>
+      <button class="setuju" @click="setujuiMou">Setujui</button>
+      <button class="tolak" @click="tolakMou">Tolak</button>
     </div>
     <!-- end of Temporary konfirmasi proyek (investor) -->
   </div>
@@ -193,13 +240,23 @@ export default {
       },
       form_konfirmasi: {
         mou_proyek: ""
-      }
+      },
+      namaFileMou: null
     };
   },
   methods: {
     back() {
       this.$router.go(-1);
     },
+
+    menentukanStatus(status) {
+      if (status === `waiting`) return "Sedang Menunggu Konfirmasi..";
+      if (status === "waiting2")
+        return "MoU telah diupload, sedang menunggu konfirmasi..";
+      if (status === "ongoing") return "Sedang dalam pengerjaan..";
+      else return "Telah selesai dilaksanakan..";
+    },
+
     formatDate(timestamp) {
       let date = new Date(timestamp * 1000);
       let month = date.getMonth() + 1;
@@ -301,6 +358,7 @@ export default {
         this.form_konfirmasi.mou_proyek = "";
       } else {
         this.form_konfirmasi.mou_proyek = files[0];
+        document.getElementById("file-chosen").innerHTML = files[0].name;
       }
     },
     handleClickMou() {
@@ -318,6 +376,7 @@ export default {
       }
     }
   },
+
   computed: {
     ...mapState(["currentUser", "userProfile"])
   },
@@ -348,4 +407,18 @@ export default {
 
 <style scoped>
 @import url("../assets/css/proyek.css");
+label {
+  background-color: #5bc77a;
+  color: white;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+#file-chosen {
+  margin-left: 0.3rem;
+  font-family: sans-serif;
+}
 </style>

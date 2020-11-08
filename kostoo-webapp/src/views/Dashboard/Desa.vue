@@ -54,7 +54,7 @@
     <!-- list card menunggu mou -->
     <div class="card-section">
       <h3 class="judul-card">Menunggu Konfirmasi MoU</h3>
-      <div v-if="menunggu_mou !== 0" class="list-card-proyek">
+      <div v-if="menunggu_mou.length !== 0" class="list-card-proyek">
         <!-- card -->
         <div
           class="card-proyek"
