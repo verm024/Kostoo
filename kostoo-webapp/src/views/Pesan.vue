@@ -46,7 +46,7 @@
       <div class="content" v-if="userProfile.role == 'investor'">
         <div class="judul">Desa {{ item.desa.nama_desa }}</div>
         <div class="deskripsi" v-if="last_pesan[index]">
-          {{ last_pesan[index].content.slice(0, 15) }}
+          {{ last_pesan[index].content.slice(0, 20) }}
         </div>
       </div>
       <div class="content" v-else-if="userProfile.role == 'desa'">
@@ -54,7 +54,7 @@
           {{ item.investor.nama_perusahaan }}
         </div>
         <div class="deskripsi" v-if="last_pesan[index]">
-          {{ last_pesan[index].content.slice(0, 15) }}
+          {{ last_pesan[index].content.slice(0, 20) }}
         </div>
       </div>
     </div>
@@ -114,7 +114,7 @@ export default {
             .doc(element.id)
             .collection("pesan")
             .limit(1)
-            .orderBy("tanggal_dikirim", "desc")
+            .orderBy("tanggal_pesan", "desc")
             .get()
             .then(doc => {
               if (doc.docs.length > 0) {
