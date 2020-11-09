@@ -242,12 +242,14 @@
         <button
           class="orange-button"
           v-if="userProfile.role == 'investor' && checkUser()"
+          @click="handleClickHubungi"
         >
           Hubungi Desa
         </button>
         <button
           class="orange-button"
           v-if="userProfile.role == 'desa' && checkUser()"
+          @click="handleClickHubungi"
         >
           Hubungi Investor
         </button>
@@ -657,6 +659,71 @@ export default {
       } else {
         this.form_konfirmasi.mou_proyek = files[0];
         document.getElementById("file-chosen").innerHTML = files[0].name;
+      }
+    },
+    async handleClickHubungi() {
+      let data;
+      try {
+        if (this.userProfile.role == "investor") {
+          data = await firebase.db
+            .collection("pesan")
+            .where(
+              "desa",
+              "==",
+              firebase.db.collection("users").doc(this.data_proyek.desa.id)
+            )
+            .where(
+              "investor",
+              "==",
+              firebase.db.collection("users").doc(this.currentUser.uid)
+            )
+            .get();
+        } else {
+          data = await firebase.db
+            .collection("pesan")
+            .where(
+              "investor",
+              "==",
+              firebase.db.collection("users").doc(this.data_proyek.investor.id)
+            )
+            .where(
+              "desa",
+              "==",
+              firebase.db.collection("users").doc(this.currentUser.uid)
+            )
+            .get();
+        }
+      } catch (error) {
+        console.error(error);
+      }
+      if (data.docs.length > 0) {
+        this.$router.push("/pesan/" + data.docs[0].id);
+      } else {
+        let room;
+        try {
+          if (this.userProfile.role == "investor") {
+            room = await firebase.db.collection("pesan").add({
+              desa: firebase.db.collection("users").doc(this.$route.params.id),
+              investor: firebase.db
+                .collection("users")
+                .doc(this.currentUser.uid)
+            });
+          } else {
+            room = await firebase.db.collection("pesan").add({
+              investor: firebase.db
+                .collection("users")
+                .doc(this.$route.params.id),
+              desa: firebase.db.collection("users").doc(this.currentUser.uid)
+            });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+        if (room) {
+          this.$router.push("/pesan/" + room.id);
+        } else {
+          alert("Terjadi error, coba lagi nanti");
+        }
       }
     },
     handleClickMou() {
