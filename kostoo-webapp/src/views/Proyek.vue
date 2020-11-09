@@ -105,7 +105,7 @@
 
       <div
         class="card-mou"
-        v-if="data_proyek.status_proyek != 'waiting'"
+        v-if="data_proyek.status_proyek != 'waiting' && checkUser()"
         @click="handleClickMou"
       >
         <div class="text-card">
@@ -239,14 +239,25 @@
         </div>
       </div>
       <div style="text-align:center">
-        <button class="orange-button" v-if="userProfile.role == 'investor'">
+        <button
+          class="orange-button"
+          v-if="userProfile.role == 'investor' && checkUser()"
+        >
           Hubungi Desa
+        </button>
+        <button
+          class="orange-button"
+          v-if="userProfile.role == 'desa' && checkUser()"
+        >
+          Hubungi Investor
         </button>
 
         <button
           @click="openCloseFormUpdate"
           v-if="
-            userProfile.role == 'desa' && data_proyek.status_proyek == 'ongoing'
+            userProfile.role == 'desa' &&
+              data_proyek.status_proyek == 'ongoing' &&
+              checkUser()
           "
           class="orange-button"
         >
@@ -261,7 +272,9 @@
 
     <div
       v-if="
-        userProfile.role == 'desa' && data_proyek.status_proyek == 'waiting'
+        userProfile.role == 'desa' &&
+          data_proyek.status_proyek == 'waiting' &&
+          checkUser()
       "
       class="deskripsi-proyek"
     >
@@ -291,7 +304,8 @@
       id="button-konfirmasi-mou"
       v-if="
         userProfile.role == 'investor' &&
-          data_proyek.status_proyek == 'waiting2'
+          data_proyek.status_proyek == 'waiting2' &&
+          checkUser()
       "
     >
       <button class="setuju" @click="setujuiMou">Setujui</button>
@@ -381,7 +395,8 @@
       v-if="
         data_proyek.status_proyek == 'ongoing' &&
           userProfile.role == 'desa' &&
-          data_proyek.pengajuan_pembatalan == ''
+          data_proyek.pengajuan_pembatalan == '' &&
+          checkUser()
       "
     >
       <button @click="selesaikanProyek">Selesaikan</button>
@@ -392,7 +407,8 @@
     <div
       v-if="
         data_proyek.status_proyek == 'ongoing' &&
-          data_proyek.pengajuan_pembatalan == ''
+          data_proyek.pengajuan_pembatalan == '' &&
+          checkUser()
       "
     >
       <button @click="() => ajukanPembatalan(userProfile.role)">
@@ -403,7 +419,8 @@
     <div
       v-if="
         data_proyek.status_proyek == 'ongoing' &&
-          data_proyek.pengajuan_pembatalan == userProfile.role
+          data_proyek.pengajuan_pembatalan == userProfile.role &&
+          checkUser()
       "
     >
       <button @click="batalkanPengajuan">Batalkan pengajuan pembatalan</button>
@@ -413,7 +430,8 @@
       v-if="
         data_proyek.status_proyek == 'ongoing' &&
           data_proyek.pengajuan_pembatalan != '' &&
-          data_proyek.pengajuan_pembatalan != userProfile.role
+          data_proyek.pengajuan_pembatalan != userProfile.role &&
+          checkUser()
       "
     >
       <button @click="terimaPengajuan">Terima pengajuan pembatalan</button>
@@ -453,7 +471,21 @@ export default {
     back() {
       this.$router.go(-1);
     },
-
+    checkUser() {
+      if (this.userProfile.role == "investor") {
+        if (this.currentUser.uid == this.data_proyek.investor.id) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        if (this.currentUser.uid == this.data_proyek.desa.id) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    },
     menentukanStatus(status) {
       if (status === `waiting`) return "Sedang Menunggu Konfirmasi..";
       if (status === "waiting2")
@@ -661,6 +693,7 @@ export default {
     ...mapState(["currentUser", "userProfile"])
   },
   async created() {
+    let projectFound = true;
     let ref = firebase.storage
       .ref()
       .child("/proyek/" + this.$route.params.id + ".pdf");
@@ -669,17 +702,22 @@ export default {
       this.file_proyek.detail_proyek = url;
     } catch (error) {
       console.error(error);
+      projectFound = false;
     }
-    if (this.data_proyek.status_proyek != "waiting") {
-      ref = firebase.storage
-        .ref()
-        .child("/mou/" + this.$route.params.id + ".pdf");
-      try {
-        let url = await ref.getDownloadURL();
-        this.file_proyek.mou_proyek = url;
-      } catch (error) {
-        console.error(error);
+    if (projectFound) {
+      if (this.data_proyek.status_proyek != "waiting") {
+        ref = firebase.storage
+          .ref()
+          .child("/mou/" + this.$route.params.id + ".pdf");
+        try {
+          let url = await ref.getDownloadURL();
+          this.file_proyek.mou_proyek = url;
+        } catch (error) {
+          console.error(error);
+        }
       }
+    } else {
+      return this.$router.push("/" + this.userProfile.role);
     }
   }
 };
