@@ -1,15 +1,11 @@
 <template>
   <div class="pesan">
-      Fitur ini sedang dalam masa pengembangan
+    Fitur ini sedang dalam masa pengembangan
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>

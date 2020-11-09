@@ -228,7 +228,11 @@
             <p style="margin-top:8px;color:#333333" class="deskripsi">
               Pengeluaran : {{ formatCurrency(progress.harga_progress) }}
             </p>
-            <p style="margin-top:-16px;color:#EC6B2A" class="deskripsi" @click="() => handleClickBukti(progress.bukti_progress)">
+            <p
+              style="margin-top:-16px;color:#EC6B2A"
+              class="deskripsi"
+              @click="() => handleClickBukti(progress.bukti_progress)"
+            >
               Bukti
             </p>
           </div>
@@ -422,7 +426,7 @@
 import firebase from "../firebase";
 import { mapState } from "vuex";
 import currencyFormatter from "currency-formatter";
-import validator from 'validator'
+import validator from "validator";
 
 export default {
   data() {
@@ -475,7 +479,10 @@ export default {
           this.form_progress.harga_progress == "" ||
           this.form_progress.bukti_progress == "" ||
           !validator.isURL(this.form_progress.bukti_progress) ||
-          !(this.form_progress.bukti_progress.includes("http://") || this.form_progress.bukti_progress.includes("https://"))
+          !(
+            this.form_progress.bukti_progress.includes("http://") ||
+            this.form_progress.bukti_progress.includes("https://")
+          )
         )
       ) {
         let currentProgress = this.data_proyek.progress;
@@ -508,9 +515,8 @@ export default {
         } catch (error) {
           console.error(error);
         }
-      }
-      else {
-        alert("Harap isi form progress sesuai dengan format yang ada!")
+      } else {
+        alert("Harap isi form progress sesuai dengan format yang ada!");
       }
     },
     async setujuiProyek() {
@@ -605,7 +611,7 @@ export default {
         console.error(error);
       }
     },
-    handleClickBukti(url){
+    handleClickBukti(url) {
       window.location.href = url;
     },
     handleFileChange(e) {

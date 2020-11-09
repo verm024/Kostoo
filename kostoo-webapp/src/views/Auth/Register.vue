@@ -140,6 +140,7 @@
 
 <script>
 import firebase from "../../firebase";
+import validator from "validator";
 
 export default {
   data() {
@@ -178,49 +179,73 @@ export default {
   methods: {
     async register() {
       let user;
-      try {
-        user = await firebase.auth.createUserWithEmailAndPassword(
-          this.register_form.email,
-          this.register_form.password
-        );
-      } catch (error) {
-        console.error(error);
-      }
-      user = user.user;
-      let registerData;
-      this.kategori.forEach(element => {
-        if (element.selected) {
-          this.register_form.kategori.push(element.name);
+      if (
+        validator.isEmail(this.register_form.email) &&
+        this.register_form.password.length >= 6 &&
+        this.register_form.password.length <= 20
+      ) {
+        let registerData;
+        this.kategori.forEach(element => {
+          if (element.selected) {
+            this.register_form.kategori.push(element.name);
+          }
+        });
+        if (this.register_form.role == "desa") {
+          if (
+            this.register_form.nama_desa == "" ||
+            this.register_form.deskripsi_desa == "" ||
+            this.register_form.kota_desa == "" ||
+            this.register_form.provinsi_desa == "" ||
+            this.register_form.kategori.length == 0
+          ) {
+            alert("Harap isi semua form yang wajib diisi");
+            return;
+          }
+          registerData = {
+            role: this.register_form.role,
+            nama_desa: this.register_form.nama_desa,
+            deskripsi_desa: this.register_form.deskripsi_desa,
+            kota_desa: this.register_form.kota_desa,
+            provinsi_desa: this.register_form.provinsi_desa,
+            kategori: this.register_form.kategori
+          };
+        } else {
+          if (this.register_form.nama_perusahaan == "") {
+            alert("Harap isi semua form yang wajib diisi");
+            return;
+          }
+          registerData = {
+            role: this.register_form.role,
+            nama_perusahaan: this.register_form.nama_perusahaan
+          };
         }
-      });
-      if (this.register_form.role == "desa") {
-        registerData = {
-          role: this.register_form.role,
-          nama_desa: this.register_form.nama_desa,
-          deskripsi_desa: this.register_form.deskripsi_desa,
-          kota_desa: this.register_form.kota_desa,
-          provinsi_desa: this.register_form.provinsi_desa,
-          kategori: this.register_form.kategori
-        };
-      } else {
-        registerData = {
-          role: this.register_form.role,
-          nama_perusahaan: this.register_form.nama_perusahaan
-        };
-      }
-      if (user.uid) {
         try {
-          await firebase.db
-            .collection("users")
-            .doc(user.uid)
-            .set(registerData);
+          user = await firebase.auth.createUserWithEmailAndPassword(
+            this.register_form.email,
+            this.register_form.password
+          );
         } catch (error) {
           console.error(error);
         }
+        user = user.user;
+        if (user.uid) {
+          try {
+            await firebase.db
+              .collection("users")
+              .doc(user.uid)
+              .set(registerData);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+        this.$store.commit("setCurrentUser", user);
+        this.$store.dispatch("fetchUserProfile");
+        this.$router.push("/" + this.register_form.role);
+      } else {
+        alert(
+          "Format email harus sesuai dengan yang telah ditentukan dan panjang password harus antara 6 hingga 20 karakter"
+        );
       }
-      this.$store.commit("setCurrentUser", user);
-      this.$store.dispatch("fetchUserProfile");
-      this.$router.push("/");
     }
   }
 };
