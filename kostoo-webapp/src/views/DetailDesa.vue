@@ -195,14 +195,14 @@ export default {
               desa: firebase.db.collection("users").doc(this.$route.params.id),
               investor: firebase.db
                 .collection("users")
-                .doc(this.currentUser.uid)
+                .doc(this.currentUser.uid), tanggal_pesan: new Date()
             });
           } else {
             room = await firebase.db.collection("pesan").add({
               investor: firebase.db
                 .collection("users")
                 .doc(this.$route.params.id),
-              desa: firebase.db.collection("users").doc(this.currentUser.uid)
+              desa: firebase.db.collection("users").doc(this.currentUser.uid), tanggal_pesan: new Date()
             });
           }
         } catch (error) {

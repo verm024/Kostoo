@@ -703,17 +703,17 @@ export default {
         try {
           if (this.userProfile.role == "investor") {
             room = await firebase.db.collection("pesan").add({
-              desa: firebase.db.collection("users").doc(this.$route.params.id),
+              desa: firebase.db.collection("users").doc(this.data_proyek.desa.id),
               investor: firebase.db
                 .collection("users")
-                .doc(this.currentUser.uid)
+                .doc(this.currentUser.uid), tanggal_pesan: new Date()
             });
           } else {
             room = await firebase.db.collection("pesan").add({
               investor: firebase.db
                 .collection("users")
-                .doc(this.$route.params.id),
-              desa: firebase.db.collection("users").doc(this.currentUser.uid)
+                .doc(this.data_proyek.investor.id),
+              desa: firebase.db.collection("users").doc(this.currentUser.uid), tanggal_pesan: new Date()
             });
           }
         } catch (error) {
