@@ -228,6 +228,9 @@
             <p style="margin-top:8px;color:#333333" class="deskripsi">
               Pengeluaran : {{ formatCurrency(progress.harga_progress) }}
             </p>
+            <p style="margin-top:-16px;color:#EC6B2A" class="deskripsi" @click="() => handleClickBukti(progress.bukti_progress)">
+              Bukti
+            </p>
           </div>
         </div>
       </div>
@@ -340,6 +343,17 @@
             />
           </div>
 
+          <div class="sub-form">
+            <p class="judul-input">
+              URL Bukti
+            </p>
+            <input
+              type="text"
+              v-model="form_progress.bukti_progress"
+              placeholder="http://www.example.com"
+            />
+          </div>
+
           <div style="text-align:center;margin-top:20px">
             <button class="orange-button" @click="tambahProgress">
               Perbarui progress
@@ -408,6 +422,7 @@
 import firebase from "../firebase";
 import { mapState } from "vuex";
 import currencyFormatter from "currency-formatter";
+import validator from 'validator'
 
 export default {
   data() {
@@ -417,7 +432,8 @@ export default {
         nama_progress: "",
         deskripsi_progress: "",
         tanggal_progress: "",
-        harga_progress: ""
+        harga_progress: "",
+        bukti_progress: ""
       },
       file_proyek: {
         detail_proyek: "",
@@ -456,7 +472,10 @@ export default {
           this.form_progress.nama_progress == "" ||
           this.form_progress.deskripsi_progress == "" ||
           this.form_progress.tanggal_progress == "" ||
-          this.form_progress.harga_progress == ""
+          this.form_progress.harga_progress == "" ||
+          this.form_progress.bukti_progress == "" ||
+          !validator.isURL(this.form_progress.bukti_progress) ||
+          !(this.form_progress.bukti_progress.includes("http://") || this.form_progress.bukti_progress.includes("https://"))
         )
       ) {
         let currentProgress = this.data_proyek.progress;
@@ -469,7 +488,8 @@ export default {
           nama_progress: this.form_progress.nama_progress,
           deskripsi_progress: this.form_progress.deskripsi_progress,
           tanggal_progress: new Date(this.form_progress.tanggal_progress),
-          harga_progress: this.form_progress.harga_progress
+          harga_progress: this.form_progress.harga_progress,
+          bukti_progress: this.form_progress.bukti_progress
         };
         currentProgress.push(dataProgress);
         currentProgress.sort((a, b) => {
@@ -488,6 +508,9 @@ export default {
         } catch (error) {
           console.error(error);
         }
+      }
+      else {
+        alert("Harap isi form progress sesuai dengan format yang ada!")
       }
     },
     async setujuiProyek() {
@@ -581,6 +604,9 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    handleClickBukti(url){
+      window.location.href = url;
     },
     handleFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
