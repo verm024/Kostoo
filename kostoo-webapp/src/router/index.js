@@ -114,10 +114,20 @@ const routes = [
           title: "Pesan",
           navCategory: "pesan"
         }
+      },
+      {
+        path: "pesan/:id",
+        component: Pesan,
+        name: "Detail Pesan",
+        meta: {
+          requiresLogin: true,
+          allowedRole: "investor+desa",
+          title: "Pesan",
+          navCategory: "pesan"
+        }
       }
     ]
   },
-
   {
     path: "/login",
     name: "Login",
