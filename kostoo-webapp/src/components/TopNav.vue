@@ -1,5 +1,5 @@
 <template>
-  <div class="top-nav">
+  <div class="top-nav" v-if="$route.name != 'Detail Pesan'">
     <svg
       class="humburger-menu"
       width="30"

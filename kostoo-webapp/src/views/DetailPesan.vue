@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-pesan container">
+  <div class="detail-pesan">
     <div class="judul-dan-back" v-if="informasi_pesan.desa">
       <svg
         @click="back"
@@ -20,45 +20,58 @@
       </p>
       <p v-else>{{ informasi_pesan.investor.nama_perusahaan }}</p>
     </div>
-    <div class="card-detail" v-for="(item, index) in daftar_pesan" :key="index">
-      <div class="wrapper left" v-if="item.sender != userProfile.role">
-        <div
-          class="sender"
-          v-if="informasi_pesan.desa && item.sender == 'desa'"
-        >
-          Desa {{ informasi_pesan.desa.nama_desa }}
+    <div class="container list-pesan">
+      <div
+        :class="
+          index == daftar_pesan.length - 1
+            ? 'scroll-to card-detail'
+            : 'card-detail'
+        "
+        v-for="(item, index) in daftar_pesan"
+        :key="index"
+      >
+        <div class="wrapper left" v-if="item.sender != userProfile.role">
+          <div
+            class="sender"
+            v-if="informasi_pesan.desa && item.sender == 'desa'"
+          >
+            Desa {{ informasi_pesan.desa.nama_desa }}
+          </div>
+          <div
+            class="sender"
+            v-if="informasi_pesan.desa && item.sender == 'investor'"
+          >
+            {{ informasi_pesan.investor.nama_perusahaan }}
+          </div>
+          <div class="content deskripsi">
+            {{ item.content }}
+          </div>
+          <div class="time" v-if="item.tanggal_pesan">
+            {{ formatDate(item.tanggal_pesan.seconds) }}
+          </div>
         </div>
-        <div
-          class="sender"
-          v-if="informasi_pesan.desa && item.sender == 'investor'"
-        >
-          {{ informasi_pesan.investor.nama_perusahaan }}
-        </div>
-        <div class="content deskripsi">
-          {{ item.content }}
-        </div>
-        <div class="time" v-if="item.tanggal_pesan">
-          {{ formatDate(item.tanggal_pesan.seconds) }}
+        <div class="wrapper right" v-if="item.sender == userProfile.role">
+          <div class="content deskripsi">
+            {{ item.content }}
+          </div>
+          <div class="time" v-if="item.tanggal_pesan">
+            {{ formatDate(item.tanggal_pesan.seconds) }}
+          </div>
         </div>
       </div>
-      <div class="wrapper right" v-if="item.sender == userProfile.role">
-        <div class="content deskripsi">
-          {{ item.content }}
-        </div>
-        <div class="time" v-if="item.tanggal_pesan">
-          {{ formatDate(item.tanggal_pesan.seconds) }}
-        </div>
+      <div v-if="daftar_pesan.length == 0" class="empty">
+        Belum ada pesan
       </div>
     </div>
-    <div v-if="daftar_pesan.length == 0" class="empty">
-      Belum ada pesan
-    </div>
-
-    <div>
-      <input type="text" v-model="pesan_baru" />
-      <button @click="kirimPesan">
-        Kirim
-      </button>
+    <div class="pesan-baru">
+      <div class="input">
+        <input type="text" v-model="pesan_baru" />
+      </div>
+      <div class="kirim">
+        <button @click="kirimPesan">
+          Kirim
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -73,7 +86,8 @@ export default {
     return {
       daftar_pesan: [],
       informasi_pesan: [],
-      pesan_baru: ""
+      pesan_baru: "",
+      update_counter: 0
     };
   },
   watch: {
@@ -98,9 +112,21 @@ export default {
   computed: {
     ...mapState(["currentUser", "userProfile"])
   },
+  updated() {
+    this.update_counter += 1;
+    if (this.update_counter == 4) {
+      this.scrollToElement();
+    }
+  },
   methods: {
     back() {
       this.$router.go(-1);
+    },
+    scrollToElement() {
+      let el = this.$el.getElementsByClassName("scroll-to")[0];
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     },
     formatDate(timestamp) {
       let date = new Date(timestamp * 1000);
@@ -136,6 +162,8 @@ export default {
         } catch (error) {
           console.error(error);
         }
+        this.pesan_baru = "";
+        this.scrollToElement();
       }
     }
   },
@@ -172,13 +200,17 @@ export default {
 </script>
 
 <style scoped>
-.judul-dan-back{
-    margin-bottom: 20px;
-    position: fixed;
-    background: white;
-    width: 100%;
-    margin-left: 24px;
-    margin-top: -20px;
+.judul-dan-back {
+  margin-bottom: 20px;
+  position: fixed;
+  background: white;
+  width: 100%;
+  padding-left: 24px;
+  margin-top: -20px;
+}
+
+.list-pesan {
+  padding-top: 80px;
 }
 
 .card-detail {
@@ -222,6 +254,38 @@ export default {
   color: #89969f;
   font-weight: 300;
   margin-top: 20px;
+}
+
+.pesan-baru {
+  z-index: 3;
+  bottom: 0;
+  padding: 12px;
+  position: fixed;
+  background-color: #ffffff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.04);
+  border-top: 1px solid #f1f4f2;
+}
+
+.input {
+  width: 100%;
+}
+
+.input input {
+  border: 1px solid #dee7ee;
+  font-size: 18px;
+  padding: 12px 24px;
+  width: 100%;
+  color: #333333;
+  outline: none;
+  border-radius: 8px;
+}
+
+.kirim {
+  width: 100px;
+  height: 100%;
 }
 
 .empty {

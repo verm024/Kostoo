@@ -1,5 +1,5 @@
 <template>
-  <div class="bottom-nav">
+  <div class="bottom-nav" v-if="$route.name != 'Detail Pesan'">
     <a
       class="nav-object"
       @click="
