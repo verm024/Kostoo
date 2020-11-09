@@ -12,6 +12,7 @@ import FormKerjasama from "../views/FormKerjasama";
 import Login from "../views/Auth/Login";
 import Register from "../views/Auth/Register";
 import Profile from "../views/Profile";
+import Pesan from "../views/Pesan";
 
 Vue.use(VueRouter);
 
@@ -101,6 +102,17 @@ const routes = [
           allowedRole: "investor+desa",
           title: "Profile",
           navCategory: "proyek"
+        }
+      },
+      {
+        path: "pesan",
+        component: Pesan,
+        name: "Pesan",
+        meta: {
+          requiresLogin: true,
+          allowedRole: "investor+desa",
+          title: "Pesan",
+          navCategory: "pesan"
         }
       }
     ]

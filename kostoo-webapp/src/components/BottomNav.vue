@@ -94,7 +94,7 @@
       class="nav-object"
       @click="
         () => {
-          handleNav('/cari-desa');
+          handleNav('/pesan');
         }
       "
     >
