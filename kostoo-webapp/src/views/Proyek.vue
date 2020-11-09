@@ -134,10 +134,15 @@
     <!-- pihak terlibat -->
     <div id="pihak-terlibat">
       <p v-if="data_proyek.investor.nama_perusahaan">
-        <span style="font-weight:bold">{{ data_proyek.investor.nama_perusahaan }}</span>
-         sebagai Investor
+        <span style="font-weight:bold">{{
+          data_proyek.investor.nama_perusahaan
+        }}</span>
+        sebagai Investor
       </p>
-      <p v-if="data_proyek.desa.nama_desa"> <span style="font-weight:bold">{{ data_proyek.desa.nama_desa }}</span>   sebagai Desa</p>
+      <p v-if="data_proyek.desa.nama_desa">
+        <span style="font-weight:bold">{{ data_proyek.desa.nama_desa }}</span>
+        sebagai Desa
+      </p>
     </div>
     <!-- end of pihak terlibat -->
 

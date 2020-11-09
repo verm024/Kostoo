@@ -11,6 +11,7 @@ import DetailDesa from "../views/DetailDesa";
 import FormKerjasama from "../views/FormKerjasama";
 import Login from "../views/Auth/Login";
 import Register from "../views/Auth/Register";
+import Profile from "../views/Profile";
 
 Vue.use(VueRouter);
 
@@ -89,6 +90,17 @@ const routes = [
           allowedRole: "investor",
           title: "Ajukan Kerjasama",
           navCategory: "cari"
+        }
+      },
+      {
+        path: "profile",
+        component: Profile,
+        name: "Profile",
+        meta: {
+          requiresLogin: true,
+          allowedRole: "investor+desa",
+          title: "Profile",
+          navCategory: "proyek"
         }
       }
     ]
