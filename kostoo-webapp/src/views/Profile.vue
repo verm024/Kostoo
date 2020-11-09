@@ -159,6 +159,16 @@ export default {
         }
       });
       if (this.userProfile.role == "desa") {
+        if (
+          this.form_profile.nama_desa == "" ||
+          this.form_profile.deskripsi_desa == "" ||
+          this.form_profile.kota_desa == "" ||
+          this.form_profile.provinsi_desa == "" ||
+          this.form_profile.new_kategori.length == 0
+        ) {
+          alert("Harap isi semua form yang wajib diisi");
+          return;
+        }
         profileData = {
           nama_desa: this.form_profile.nama_desa,
           deskripsi_desa: this.form_profile.deskripsi_desa,
@@ -167,8 +177,11 @@ export default {
           kategori: this.form_profile.new_kategori,
           role: "desa"
         };
-        console.log(profileData);
       } else {
+        if (this.form_profile.nama_perusahaan == "") {
+          alert("Harap isi semua form yang wajib diisi");
+          return;
+        }
         profileData = {
           nama_perusahaan: this.form_profile.nama_perusahaan,
           role: "investor"
