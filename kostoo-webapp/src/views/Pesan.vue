@@ -1,6 +1,11 @@
 <template>
   <div class="pesan container">
-    <div class="card-pesan" v-for="(item, index) in daftar_pesan" :key="index" @click="$router.push('/pesan/' + item.id)">
+    <div
+      class="card-pesan"
+      v-for="(item, index) in daftar_pesan"
+      :key="index"
+      @click="$router.push('/pesan/' + item.id)"
+    >
       <div class="icon">
         <svg
           width="50"
@@ -52,6 +57,9 @@
           {{ last_pesan[index].content.slice(0, 15) }}
         </div>
       </div>
+    </div>
+    <div v-if="daftar_pesan.length == 0" class="empty">
+      Belum ada pesan
     </div>
   </div>
 </template>
@@ -159,5 +167,12 @@ export default {
 .pesan .deskripsi {
   font-size: 16px;
   margin-top: 5px;
+}
+
+.empty {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 50px;
+  color: #89969f;
 }
 </style>

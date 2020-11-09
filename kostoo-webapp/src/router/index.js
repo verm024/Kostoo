@@ -13,6 +13,7 @@ import Login from "../views/Auth/Login";
 import Register from "../views/Auth/Register";
 import Profile from "../views/Profile";
 import Pesan from "../views/Pesan";
+import DetailPesan from "../views/DetailPesan";
 
 Vue.use(VueRouter);
 
@@ -117,7 +118,7 @@ const routes = [
       },
       {
         path: "pesan/:id",
-        component: Pesan,
+        component: DetailPesan,
         name: "Detail Pesan",
         meta: {
           requiresLogin: true,
