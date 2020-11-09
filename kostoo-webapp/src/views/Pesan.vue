@@ -125,6 +125,30 @@ export default {
               }
             });
         });
+        for(let i = 0; i < this.daftar_pesan.length; i++){
+          if(typeof this.daftar_pesan[i].desa == "string"){
+            let id = this.daftar_pesan[i].desa.split("/")[1]
+            let data
+            try {
+              data = await firebase.db.collection("users").doc(id).get()
+            } catch (error) {
+              console.error(error)
+            }
+            data = data.data()
+            this.daftar_pesan[i].desa = data
+          }
+          if(typeof this.daftar_pesan[i].investor == "string"){
+            let id = this.daftar_pesan[i].investor.split("/")[1]
+            let data
+            try {
+              data = await firebase.db.collection("users").doc(id).get()
+            } catch (error) {
+              console.error(error)
+            }
+            data = data.data()
+            this.daftar_pesan[i].investor = data
+          }
+        }
       }
     }
   }
