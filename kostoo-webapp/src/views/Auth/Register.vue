@@ -134,6 +134,17 @@
           Register
         </button>
       </div>
+
+      <p style="margin-top:20px;text-align:center" class="sub-judul-halaman">
+        Sudah memiliki akun ? silahkan <br />
+        masuk
+        <router-link
+          style="color:#5BC77A;font-weight:600"
+          tag="span"
+          to="/login"
+          >di sini</router-link
+        >
+      </p>
     </div>
   </div>
 </template>
