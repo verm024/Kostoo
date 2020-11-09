@@ -511,6 +511,7 @@ export default {
           this.form_progress.deskripsi_progress = "";
           this.form_progress.tanggal_progress = "";
           this.form_progress.harga_progress = "";
+          this.form_progress.bukti_progress = "";
           this.openCloseFormUpdate();
         } catch (error) {
           console.error(error);
