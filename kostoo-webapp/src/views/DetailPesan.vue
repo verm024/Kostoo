@@ -213,10 +213,6 @@ export default {
   margin-top: -20px;
 }
 
-.list-pesan {
-  padding-top: 80px;
-}
-
 .card-detail {
   width: 100%;
 }

@@ -13,9 +13,10 @@
 /* potensi desa */
 
 .list-potensi-desa{
+    flex-wrap: wrap;
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .card-potensi-desa {
