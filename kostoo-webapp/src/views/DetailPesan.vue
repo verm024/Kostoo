@@ -1,6 +1,6 @@
 <template>
   <div class="detail-pesan">
-    <div class="judul-dan-back" v-if="informasi_pesan.desa">
+    <div style="top:20px" class="judul-dan-back" v-if="informasi_pesan.desa">
       <svg
         @click="back"
         width="20"

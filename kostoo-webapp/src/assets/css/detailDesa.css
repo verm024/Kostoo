@@ -14,7 +14,6 @@
 
 .list-potensi-desa{
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
     margin-top: 20px;
 }
@@ -52,6 +51,7 @@
 }
 
 .card-pengalaman{
+    cursor: pointer;
     margin-right: 24px;
     padding: 20px;
     background: #FFFFFF;
@@ -59,7 +59,7 @@
     box-sizing: border-box;
     border-radius: 8px;
     min-width: 340px;
-    height: 132px;
+    height: 140px;
     box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.04);
     align-items: center;
     margin-bottom: 18px;

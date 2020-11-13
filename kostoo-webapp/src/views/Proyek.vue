@@ -255,7 +255,7 @@
           </div>
         </div>
       </div>
-      <div style="display: flex;align-items: center;">
+      <div style="display: flex;align-items: center;justify-content:center">
         <div
           v-if="
             data_proyek.status_proyek == 'ongoing' &&
@@ -263,12 +263,17 @@
               checkUser()
           "
         >
-          <button style="font-weight:500;color:#EC6B2A;background:white" class="orange-button" @click="batalkanPengajuan">
+          <button
+            style="font-weight:500;color:#EC6B2A;background:white"
+            class="orange-button"
+            @click="batalkanPengajuan"
+          >
             Batalkan pengajuan pembatalan
           </button>
         </div>
 
         <button
+        style="margin-left:-19px;margin-right:20px"
           @click="openCloseFormUpdate"
           v-if="
             userProfile.role == 'desa' &&
@@ -435,7 +440,8 @@
       </button>
     </div>
 
-    <div style="text-align:center"
+    <div
+      style="text-align:center"
       v-if="
         data_proyek.status_proyek == 'ongoing' &&
           data_proyek.pengajuan_pembatalan != '' &&
@@ -443,7 +449,13 @@
           checkUser()
       "
     >
-      <button style="background:#e73c51" class="orange-button" @click="terimaPengajuan">Terima pengajuan pembatalan</button>
+      <button
+        style="background:#e73c51"
+        class="orange-button"
+        @click="terimaPengajuan"
+      >
+        Terima pengajuan pembatalan
+      </button>
     </div>
     <!-- end of ajukan pembatalan -->
   </div>
@@ -602,30 +614,39 @@ export default {
     },
     async tolakMou() {
       try {
-        await firebase.db
-          .collection("proyek")
-          .doc(this.$route.params.id)
-          .update({ status_proyek: "waiting" });
+        let alert = confirm("Apakah kamu yakin ?");
+        if (alert) {
+          await firebase.db
+            .collection("proyek")
+            .doc(this.$route.params.id)
+            .update({ status_proyek: "waiting" });
+        } else return;
       } catch (error) {
         console.error(error);
       }
     },
     async selesaikanProyek() {
       try {
-        await firebase.db
-          .collection("proyek")
-          .doc(this.$route.params.id)
-          .update({ status_proyek: "finished", tanggal_selesai: new Date() });
+        let alert = confirm("Apakah kamu yakin ?");
+        if (alert) {
+          await firebase.db
+            .collection("proyek")
+            .doc(this.$route.params.id)
+            .update({ status_proyek: "finished", tanggal_selesai: new Date() });
+        } else return;
       } catch (error) {
         console.error(error);
       }
     },
     async ajukanPembatalan(role) {
       try {
-        await firebase.db
-          .collection("proyek")
-          .doc(this.$route.params.id)
-          .update({ pengajuan_pembatalan: role });
+        let alert = confirm("Apakah kamu yakin ?");
+        if (alert) {
+          await firebase.db
+            .collection("proyek")
+            .doc(this.$route.params.id)
+            .update({ pengajuan_pembatalan: role });
+        } else return;
       } catch (error) {
         console.error(error);
       }

@@ -1,6 +1,6 @@
 <template>
   <div class="register container">
-    <h1 class="judul-halaman">
+    <h1 style="margin-top:-68px" class="judul-halaman">
       Registerasi di <br />
       Koosto
     </h1>

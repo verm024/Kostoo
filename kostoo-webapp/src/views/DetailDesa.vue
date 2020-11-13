@@ -29,9 +29,19 @@
     </div>
     <!-- end of deskripsi desa -->
 
+    
+    <!-- lokasi desa -->
+    <div class="deskripsi-desa">
+      <p class="judul-text">Lokasi Desa</p>
+      <p class="deskripsi">
+        {{ data_desa.kota_desa }}, {{data_desa.provinsi_desa}}
+      </p>
+    </div>
+    <!-- end of lokasi desa -->
+
     <!-- potensi desa -->
     <p class="judul-text">Potensi Desa</p>
-    <div class="list-potensi-desa">
+    <div style="justify-content:space-evenly" class="list-potensi-desa">
       <div
         class="card-potensi-desa"
         v-for="(item, index) in data_desa.kategori"

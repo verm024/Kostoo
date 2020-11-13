@@ -102,7 +102,7 @@ const routes = [
           requiresLogin: true,
           allowedRole: "investor+desa",
           title: "Profile",
-          navCategory: "proyek"
+          navCategory: "profile"
         }
       },
       {

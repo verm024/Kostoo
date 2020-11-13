@@ -1,6 +1,6 @@
 <template>
   <div class="login container">
-    <h1 class="judul-halaman">
+    <h1 style="margin-top:-68px" class="judul-halaman">
       Selamat datang di <br />
       Koosto
     </h1>

@@ -1,5 +1,8 @@
 /* top nav */
 .top-nav {
+    top: 0;
+    width: 100%;
+    position: fixed;
     display: flex;
     background: #FFFFFF;
     border: 1px solid #F6F8F9;

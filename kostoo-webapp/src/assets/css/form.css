@@ -71,6 +71,7 @@
     text-align: center;
 }
 .logout-button p{
+    cursor: pointer;
     font-size: 18px;
     display: flex;
     color: rgb(91, 199, 122);

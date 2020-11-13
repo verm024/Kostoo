@@ -94,10 +94,9 @@
     </div>
 
     <div class="logout-button">
-      <p>
+      <p @click="logout">
         <svg
           v-if="currentUser"
-          @click="logout"
           width="26"
           height="30"
           viewBox="0 0 21 25"
