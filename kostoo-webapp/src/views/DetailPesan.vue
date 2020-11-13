@@ -125,7 +125,9 @@ export default {
     scrollToElement() {
       let el = this.$el.getElementsByClassName("scroll-to")[0];
       if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
+        el.scrollIntoView({
+          behavior: "smooth"
+        });
       }
     },
     formatDate(timestamp) {
@@ -149,7 +151,9 @@ export default {
           await firebase.db
             .collection("pesan")
             .doc(this.$route.params.id)
-            .update({ tanggal_pesan: new Date() });
+            .update({
+              tanggal_pesan: new Date()
+            });
           await firebase.db
             .collection("pesan")
             .doc(this.$route.params.id)
@@ -286,6 +290,16 @@ export default {
 .kirim {
   width: 100px;
   height: 100%;
+}
+
+.kirim button {
+  outline: none;
+  color: white;
+  font-weight: 700;
+  background: #5bc77a;
+  border: none;
+  padding: 15px 13px;
+  border-radius: 0px 8px 8px 0px;
 }
 
 .empty {

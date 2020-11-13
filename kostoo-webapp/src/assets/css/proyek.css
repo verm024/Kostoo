@@ -254,3 +254,32 @@
     background: white;
     border-radius: 8px;
 }
+
+.proyek-selesai-button{
+    text-align: center;
+}
+
+.proyek-selesai-button button{
+    padding: 10px 40px;
+    letter-spacing: 2px;
+    color: white;
+    border: none;
+    margin: auto;
+    text-decoration: none;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 700;
+    background: #5BC77A;
+    border-radius: 8px;
+}
+
+.ajukan-pembatalan{
+    text-align: center;
+}
+
+.ajukan-pembatalan button{
+    color: #e73c51;
+    cursor: pointer;
+    background : none;
+    border: none;
+}

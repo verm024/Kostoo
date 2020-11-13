@@ -144,6 +144,23 @@
         sebagai Desa
       </p>
     </div>
+
+    <div style="text-align:center">
+      <button
+        class="orange-button"
+        v-if="userProfile.role == 'investor' && checkUser()"
+        @click="handleClickHubungi"
+      >
+        Hubungi Desa
+      </button>
+      <button
+        class="orange-button"
+        v-if="userProfile.role == 'desa' && checkUser()"
+        @click="handleClickHubungi"
+      >
+        Hubungi Investor
+      </button>
+    </div>
     <!-- end of pihak terlibat -->
 
     <!-- deskripsi proyek -->
@@ -238,21 +255,18 @@
           </div>
         </div>
       </div>
-      <div style="text-align:center">
-        <button
-          class="orange-button"
-          v-if="userProfile.role == 'investor' && checkUser()"
-          @click="handleClickHubungi"
+      <div style="display: flex;align-items: center;">
+        <div
+          v-if="
+            data_proyek.status_proyek == 'ongoing' &&
+              data_proyek.pengajuan_pembatalan == userProfile.role &&
+              checkUser()
+          "
         >
-          Hubungi Desa
-        </button>
-        <button
-          class="orange-button"
-          v-if="userProfile.role == 'desa' && checkUser()"
-          @click="handleClickHubungi"
-        >
-          Hubungi Investor
-        </button>
+          <button style="font-weight:500;color:#EC6B2A;background:white" class="orange-button" @click="batalkanPengajuan">
+            Batalkan pengajuan pembatalan
+          </button>
+        </div>
 
         <button
           @click="openCloseFormUpdate"
@@ -265,6 +279,21 @@
         >
           Perbarui Progress
         </button>
+
+        <!-- Temporary selesaikan proyek -->
+        <div
+          class="proyek-selesai-button"
+          v-if="
+            data_proyek.status_proyek == 'ongoing' &&
+              userProfile.role == 'desa' &&
+              data_proyek.pengajuan_pembatalan == '' &&
+              checkUser()
+          "
+        >
+          <button @click="selesaikanProyek">Selesai</button>
+        </div>
+
+        <!-- end of Temporary selesaikan proyek -->
       </div>
     </div>
 
@@ -392,21 +421,9 @@
     </div>
     <!-- end of tambah progress -->
 
-    <!-- Temporary selesaikan proyek -->
-    <div
-      v-if="
-        data_proyek.status_proyek == 'ongoing' &&
-          userProfile.role == 'desa' &&
-          data_proyek.pengajuan_pembatalan == '' &&
-          checkUser()
-      "
-    >
-      <button @click="selesaikanProyek">Selesaikan</button>
-    </div>
-    <!-- end of Temporary selesaikan proyek -->
-
     <!-- Temporary ajukan pembatalan -->
     <div
+      class="ajukan-pembatalan"
       v-if="
         data_proyek.status_proyek == 'ongoing' &&
           data_proyek.pengajuan_pembatalan == '' &&
@@ -418,17 +435,7 @@
       </button>
     </div>
 
-    <div
-      v-if="
-        data_proyek.status_proyek == 'ongoing' &&
-          data_proyek.pengajuan_pembatalan == userProfile.role &&
-          checkUser()
-      "
-    >
-      <button @click="batalkanPengajuan">Batalkan pengajuan pembatalan</button>
-    </div>
-
-    <div
+    <div style="text-align:center"
       v-if="
         data_proyek.status_proyek == 'ongoing' &&
           data_proyek.pengajuan_pembatalan != '' &&
@@ -436,7 +443,7 @@
           checkUser()
       "
     >
-      <button @click="terimaPengajuan">Terima pengajuan pembatalan</button>
+      <button style="background:#e73c51" class="orange-button" @click="terimaPengajuan">Terima pengajuan pembatalan</button>
     </div>
     <!-- end of ajukan pembatalan -->
   </div>

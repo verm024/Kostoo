@@ -66,3 +66,19 @@
 }
 
 /* end of login dan register */
+
+.logout-button{
+    text-align: center;
+}
+.logout-button p{
+    font-size: 18px;
+    display: flex;
+    color: rgb(91, 199, 122);
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.logout-button p svg{
+    margin-right: 10px;
+}
